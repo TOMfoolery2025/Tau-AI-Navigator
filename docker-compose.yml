@@ -1,0 +1,35 @@
+services:
+  neo4j_db:
+    image: neo4j:latest
+    container_name: hsl_graph_db
+    ports:
+      - "7474:7474" 
+      - "7687:7687" 
+    environment:
+      - NEO4J_AUTH=neo4j/password123
+      - NEO4J_PLUGINS=["apoc", "graph-data-science"]
+    volumes:
+      - ./neo4j_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  tour_app:
+    build: .
+    container_name: hsl_tour_app
+    ports:
+      - "8501:8501"
+    depends_on:
+      neo4j_db:
+        condition: service_healthy
+    environment:
+      # Network: Connect to 'neo4j_db' container, not localhost
+      - NEO4J_URI=neo4j+s://08507fd5.databases.neo4j.io
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=oowMZF566N6a_ED-bAvtsRsetFyRFTFuV6Yjda0gBWM
+      - GROQ_API_KEY=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
+      - DIGITRANSIT_API_KEY=6aac44381365469a883e6741822c9807
+    volumes:
+      - .:/app 

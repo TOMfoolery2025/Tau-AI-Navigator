@@ -1,0 +1,12 @@
+streamlit
+neo4j
+openai
+requests
+pandas
+pydeck
+gtfs-realtime-bindings
+rdflib
+protobuf==3.20.0
+groq
+pyhafas
+streamlit-js-eval

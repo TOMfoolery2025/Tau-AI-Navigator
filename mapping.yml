@@ -1,0 +1,25 @@
+prefixes:
+  gtfs: "http://vocab.gtfs.org/terms#"
+  geo: "http://www.w3.org/2003/01/geo/wgs84_pos#"
+  ex: "http://example.org/resource/"
+
+mappings:
+  stops:
+    sources:
+      - ['data.json~jsonpath', '$.data.stopsByRadius.edges[*].node']
+    s: ex:$(gtfsId)
+    po:
+      - [a, gtfs:Stop]
+      - [gtfs:name, $(name)]
+      - [geo:lat, $(lat)]
+      - [geo:long, $(lon)]
+
+  routes:
+    sources:
+      - ['data.json~jsonpath', '$.data.stopsByRadius.edges[*].node.routes[*]']
+    s: ex:$(gtfsId)
+    po:
+      - [a, gtfs:Route]
+      - [gtfs:shortName, $(shortName)]
+      - [gtfs:routeType, $(mode)]
+    
