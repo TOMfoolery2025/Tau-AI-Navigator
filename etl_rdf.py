@@ -54,6 +54,6 @@ def generate_rdf_file(api_key):
             g.add((route_uri, GTFS.shortName, Literal(route['shortName'])))
             g.add((route_uri, GTFS.serves, stop_uri))
 
-    output_path = "helsinki_graph.ttl"
+    output_path = "/app/import_stage/helsinki_graph.ttl" 
     g.serialize(destination=output_path, format="turtle")
     return output_path

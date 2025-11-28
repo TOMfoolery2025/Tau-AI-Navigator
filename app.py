@@ -14,6 +14,7 @@ from streamlit_js_eval import get_geolocation
 # Import ETL scripts
 from etl_neo4j import run_neo4j_import
 from etl_rdf import generate_rdf_file
+from etl_enrich import run_enrichment
 
 # --- 1. CONFIG & CSS ---
 st.set_page_config(layout="wide", page_title="Helsinki AI Navigator", page_icon="🇫🇮")
@@ -282,6 +283,18 @@ with st.sidebar:
         if driver:
             run_neo4j_import(driver, HSL_KEY)
             st.toast("Knowledge Graph Updated!", icon="✅")
+    if st.button("🔄 Reload Graph & Enrich"):
+        if driver:
+            # 1. Run Standard ETL
+            run_neo4j_import(driver, HSL_KEY)
+            
+            # 2. Run RDF Generation
+            rdf_file = generate_rdf_file(HSL_KEY)
+            
+            # 3. Run Semantic Enrichment (The "Winning" Step)
+            run_enrichment(driver)
+            
+            st.toast("Knowledge Graph Enriched!", icon="🧠")
 
 col_h1, col_h2 = st.columns([3, 1])
 weather = get_weather()
