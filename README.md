@@ -107,13 +107,8 @@ This triggers the ETL pipeline:
 
 ## 📸 Screenshots
 
-### The "Nordic Night" UI
-![Nordic Night UI](docs/images/ui_screenshot.png)
-*Dark mode glassmorphism interface with real-time transit overlay*
-
-### Semantic Heatmaps
-![Vibe Heatmap](docs/images/heatmap_screenshot.png)
-*Live visualization of "vibe density" across Helsinki*
+### The Knowledge Graph Nodes: 
+![Nordic Night UI](docs/images/visualisation(2).png)
 
 ---
 
