@@ -1,0 +1,28 @@
+fare_id,route_id,origin_id,destination_id,contains_id
+D,9665A,D,Ei HSL,
+D,9665A,Ei HSL,D,
+D,9665A,Ei HSL,Ei HSL,
+CD,9665A,D,Ei HSL,
+CD,9665A,Ei HSL,D,
+BCD,9665A,D,Ei HSL,
+BCD,9665A,Ei HSL,D,
+ABCD,9665A,D,Ei HSL,
+ABCD,9665A,Ei HSL,D,
+D,9987,,,
+AB,,,,A
+AB,,,,B
+BC,,,,B
+BC,,,,C
+CD,,,,C
+CD,,,,D
+D,,,,D
+ABC,,,,A
+ABC,,,,B
+ABC,,,,C
+BCD,,,,B
+BCD,,,,C
+BCD,,,,D
+ABCD,,,,A
+ABCD,,,,B
+ABCD,,,,C
+ABCD,,,,D

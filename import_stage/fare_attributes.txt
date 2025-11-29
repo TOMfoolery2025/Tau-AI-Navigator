@@ -1,0 +1,8 @@
+fare_id,price,currency_type,payment_method,transfers,transfer_duration
+AB,3.20,EUR,0,,4800
+BC,3.20,EUR,0,,4800
+CD,3.20,EUR,0,,5400
+D,3.20,EUR,0,,4800
+ABC,4.40,EUR,0,,5400
+BCD,4.40,EUR,0,,6000
+ABCD,4.80,EUR,0,,6600

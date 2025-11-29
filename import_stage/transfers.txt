@@ -1,0 +1,5 @@
+from_stop_id,to_stop_id,transfer_type,min_transfer_time
+1602203,1602203,1,
+4850204,4850204,1,
+9204216,9204216,1,
+1020552,1020454,2,180

@@ -1,0 +1,1852 @@
+@prefix geo1: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gtfs: <http://vocab.gtfs.org/terms#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/hackathon/HSL_1001> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020443>,
+        <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1020464>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040437>,
+        <http://example.org/hackathon/HSL_1040438>,
+        <http://example.org/hackathon/HSL_1040445>,
+        <http://example.org/hackathon/HSL_1130436>,
+        <http://example.org/hackathon/HSL_1130437>,
+        <http://example.org/hackathon/HSL_1130438>,
+        <http://example.org/hackathon/HSL_1130439> ;
+    gtfs:shortName "1" .
+
+<http://example.org/hackathon/HSL_1001H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040437>,
+        <http://example.org/hackathon/HSL_1130436>,
+        <http://example.org/hackathon/HSL_1130438> ;
+    gtfs:shortName "1H" .
+
+<http://example.org/hackathon/HSL_1001T> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020443>,
+        <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1020464>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040437>,
+        <http://example.org/hackathon/HSL_1040438>,
+        <http://example.org/hackathon/HSL_1040445>,
+        <http://example.org/hackathon/HSL_1130432>,
+        <http://example.org/hackathon/HSL_1130433>,
+        <http://example.org/hackathon/HSL_1130436>,
+        <http://example.org/hackathon/HSL_1130437>,
+        <http://example.org/hackathon/HSL_1130438>,
+        <http://example.org/hackathon/HSL_1130439> ;
+    gtfs:shortName "1T" .
+
+<http://example.org/hackathon/HSL_1002> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1010420>,
+        <http://example.org/hackathon/HSL_1010421>,
+        <http://example.org/hackathon/HSL_1010427>,
+        <http://example.org/hackathon/HSL_1020401>,
+        <http://example.org/hackathon/HSL_1020402>,
+        <http://example.org/hackathon/HSL_1020443>,
+        <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020448>,
+        <http://example.org/hackathon/HSL_1020449>,
+        <http://example.org/hackathon/HSL_1020450>,
+        <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020455>,
+        <http://example.org/hackathon/HSL_1020458>,
+        <http://example.org/hackathon/HSL_1020460>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1020464>,
+        <http://example.org/hackathon/HSL_1030424>,
+        <http://example.org/hackathon/HSL_1030425>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040410>,
+        <http://example.org/hackathon/HSL_1040411>,
+        <http://example.org/hackathon/HSL_1040412>,
+        <http://example.org/hackathon/HSL_1040413>,
+        <http://example.org/hackathon/HSL_1040437>,
+        <http://example.org/hackathon/HSL_1040438>,
+        <http://example.org/hackathon/HSL_1040445>,
+        <http://example.org/hackathon/HSL_1130432>,
+        <http://example.org/hackathon/HSL_1130433>,
+        <http://example.org/hackathon/HSL_1130438>,
+        <http://example.org/hackathon/HSL_1130439> ;
+    gtfs:shortName "2" .
+
+<http://example.org/hackathon/HSL_1002H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020401>,
+        <http://example.org/hackathon/HSL_1020449>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020455>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1030425>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040411>,
+        <http://example.org/hackathon/HSL_1040413>,
+        <http://example.org/hackathon/HSL_1040437>,
+        <http://example.org/hackathon/HSL_1130438> ;
+    gtfs:shortName "2H" .
+
+<http://example.org/hackathon/HSL_1003> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020457>,
+        <http://example.org/hackathon/HSL_1020458>,
+        <http://example.org/hackathon/HSL_1020459>,
+        <http://example.org/hackathon/HSL_1020460>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1020464>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040437>,
+        <http://example.org/hackathon/HSL_1040438>,
+        <http://example.org/hackathon/HSL_1040445> ;
+    gtfs:shortName "3" .
+
+<http://example.org/hackathon/HSL_1003H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040437> ;
+    gtfs:shortName "3H" .
+
+<http://example.org/hackathon/HSL_1003X> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020174>,
+        <http://example.org/hackathon/HSL_1020177>,
+        <http://example.org/hackathon/HSL_1040101>,
+        <http://example.org/hackathon/HSL_1040113>,
+        <http://example.org/hackathon/HSL_1040114>,
+        <http://example.org/hackathon/HSL_1040138> ;
+    gtfs:shortName "3X" .
+
+<http://example.org/hackathon/HSL_1004> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1010419>,
+        <http://example.org/hackathon/HSL_1010420>,
+        <http://example.org/hackathon/HSL_1010421>,
+        <http://example.org/hackathon/HSL_1010422>,
+        <http://example.org/hackathon/HSL_1010424>,
+        <http://example.org/hackathon/HSL_1010425>,
+        <http://example.org/hackathon/HSL_1010427>,
+        <http://example.org/hackathon/HSL_1010428>,
+        <http://example.org/hackathon/HSL_1020443>,
+        <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020446>,
+        <http://example.org/hackathon/HSL_1020447>,
+        <http://example.org/hackathon/HSL_1020448>,
+        <http://example.org/hackathon/HSL_1020449>,
+        <http://example.org/hackathon/HSL_1020450>,
+        <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020455>,
+        <http://example.org/hackathon/HSL_1020457>,
+        <http://example.org/hackathon/HSL_1020458>,
+        <http://example.org/hackathon/HSL_1020459>,
+        <http://example.org/hackathon/HSL_1020460>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1020464>,
+        <http://example.org/hackathon/HSL_1030401>,
+        <http://example.org/hackathon/HSL_1040445>,
+        <http://example.org/hackathon/HSL_1130432>,
+        <http://example.org/hackathon/HSL_1130433> ;
+    gtfs:shortName "4" .
+
+<http://example.org/hackathon/HSL_1004H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1010420>,
+        <http://example.org/hackathon/HSL_1010421>,
+        <http://example.org/hackathon/HSL_1010424>,
+        <http://example.org/hackathon/HSL_1010427>,
+        <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020447>,
+        <http://example.org/hackathon/HSL_1020449>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020455>,
+        <http://example.org/hackathon/HSL_1020458>,
+        <http://example.org/hackathon/HSL_1020460>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1030401>,
+        <http://example.org/hackathon/HSL_1130432> ;
+    gtfs:shortName "4H" .
+
+<http://example.org/hackathon/HSL_1004X> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1010124>,
+        <http://example.org/hackathon/HSL_1010125>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020134>,
+        <http://example.org/hackathon/HSL_1020169>,
+        <http://example.org/hackathon/HSL_1020171>,
+        <http://example.org/hackathon/HSL_1020174>,
+        <http://example.org/hackathon/HSL_1020175> ;
+    gtfs:shortName "4X" .
+
+<http://example.org/hackathon/HSL_1005> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1010424>,
+        <http://example.org/hackathon/HSL_1010425>,
+        <http://example.org/hackathon/HSL_1020402>,
+        <http://example.org/hackathon/HSL_1020447>,
+        <http://example.org/hackathon/HSL_1020448>,
+        <http://example.org/hackathon/HSL_1020449>,
+        <http://example.org/hackathon/HSL_1020450>,
+        <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020455> ;
+    gtfs:shortName "5" .
+
+<http://example.org/hackathon/HSL_1005H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1010424>,
+        <http://example.org/hackathon/HSL_1020401>,
+        <http://example.org/hackathon/HSL_1020449>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020455> ;
+    gtfs:shortName "5H" .
+
+<http://example.org/hackathon/HSL_1006> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020457>,
+        <http://example.org/hackathon/HSL_1020458>,
+        <http://example.org/hackathon/HSL_1020459>,
+        <http://example.org/hackathon/HSL_1020460>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1020464>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040437>,
+        <http://example.org/hackathon/HSL_1040438>,
+        <http://example.org/hackathon/HSL_1040445> ;
+    gtfs:shortName "6" .
+
+<http://example.org/hackathon/HSL_1006H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040437> ;
+    gtfs:shortName "6H" .
+
+<http://example.org/hackathon/HSL_1007> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1010419>,
+        <http://example.org/hackathon/HSL_1010420>,
+        <http://example.org/hackathon/HSL_1010421>,
+        <http://example.org/hackathon/HSL_1010422>,
+        <http://example.org/hackathon/HSL_1010427>,
+        <http://example.org/hackathon/HSL_1010428>,
+        <http://example.org/hackathon/HSL_1020401>,
+        <http://example.org/hackathon/HSL_1020402>,
+        <http://example.org/hackathon/HSL_1020448>,
+        <http://example.org/hackathon/HSL_1020449>,
+        <http://example.org/hackathon/HSL_1020450>,
+        <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020455>,
+        <http://example.org/hackathon/HSL_1020457>,
+        <http://example.org/hackathon/HSL_1020458>,
+        <http://example.org/hackathon/HSL_1020459>,
+        <http://example.org/hackathon/HSL_1020460>,
+        <http://example.org/hackathon/HSL_1040408>,
+        <http://example.org/hackathon/HSL_1040409>,
+        <http://example.org/hackathon/HSL_1040410>,
+        <http://example.org/hackathon/HSL_1040411> ;
+    gtfs:shortName "7" .
+
+<http://example.org/hackathon/HSL_1007H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1010420>,
+        <http://example.org/hackathon/HSL_1010421>,
+        <http://example.org/hackathon/HSL_1010427>,
+        <http://example.org/hackathon/HSL_1020402>,
+        <http://example.org/hackathon/HSL_1020448>,
+        <http://example.org/hackathon/HSL_1020450>,
+        <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1040408>,
+        <http://example.org/hackathon/HSL_1040410> ;
+    gtfs:shortName "7H" .
+
+<http://example.org/hackathon/HSL_1008T> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020443>,
+        <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1020464>,
+        <http://example.org/hackathon/HSL_1040401>,
+        <http://example.org/hackathon/HSL_1040437>,
+        <http://example.org/hackathon/HSL_1040438>,
+        <http://example.org/hackathon/HSL_1040445>,
+        <http://example.org/hackathon/HSL_1130432>,
+        <http://example.org/hackathon/HSL_1130433> ;
+    gtfs:shortName "8T" .
+
+<http://example.org/hackathon/HSL_1009> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020457>,
+        <http://example.org/hackathon/HSL_1020458>,
+        <http://example.org/hackathon/HSL_1020459>,
+        <http://example.org/hackathon/HSL_1020460>,
+        <http://example.org/hackathon/HSL_1040408>,
+        <http://example.org/hackathon/HSL_1040409>,
+        <http://example.org/hackathon/HSL_1040410>,
+        <http://example.org/hackathon/HSL_1040411> ;
+    gtfs:shortName "9" .
+
+<http://example.org/hackathon/HSL_1009H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020457>,
+        <http://example.org/hackathon/HSL_1020459>,
+        <http://example.org/hackathon/HSL_1040408>,
+        <http://example.org/hackathon/HSL_1040410> ;
+    gtfs:shortName "9H" .
+
+<http://example.org/hackathon/HSL_1009N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020457>,
+        <http://example.org/hackathon/HSL_1020458>,
+        <http://example.org/hackathon/HSL_1020459>,
+        <http://example.org/hackathon/HSL_1020460>,
+        <http://example.org/hackathon/HSL_1040408>,
+        <http://example.org/hackathon/HSL_1040409>,
+        <http://example.org/hackathon/HSL_1040410>,
+        <http://example.org/hackathon/HSL_1040411> ;
+    gtfs:shortName "9N" .
+
+<http://example.org/hackathon/HSL_100H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020443>,
+        <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020453>,
+        <http://example.org/hackathon/HSL_1020454>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1020464>,
+        <http://example.org/hackathon/HSL_1040410>,
+        <http://example.org/hackathon/HSL_1040411>,
+        <http://example.org/hackathon/HSL_1040412>,
+        <http://example.org/hackathon/HSL_1040413>,
+        <http://example.org/hackathon/HSL_1130432>,
+        <http://example.org/hackathon/HSL_1130433>,
+        <http://example.org/hackathon/HSL_1130438>,
+        <http://example.org/hackathon/HSL_1130439> ;
+    gtfs:shortName "H" .
+
+<http://example.org/hackathon/HSL_1010> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020443>,
+        <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1020464>,
+        <http://example.org/hackathon/HSL_1030428>,
+        <http://example.org/hackathon/HSL_1030429>,
+        <http://example.org/hackathon/HSL_1070427>,
+        <http://example.org/hackathon/HSL_1130432>,
+        <http://example.org/hackathon/HSL_1130433> ;
+    gtfs:shortName "10" .
+
+<http://example.org/hackathon/HSL_1010H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020444>,
+        <http://example.org/hackathon/HSL_1020463>,
+        <http://example.org/hackathon/HSL_1030428>,
+        <http://example.org/hackathon/HSL_1070427>,
+        <http://example.org/hackathon/HSL_1130432> ;
+    gtfs:shortName "10H" .
+
+<http://example.org/hackathon/HSL_1016> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1010124>,
+        <http://example.org/hackathon/HSL_1010125>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020112>,
+        <http://example.org/hackathon/HSL_1020169> ;
+    gtfs:shortName "16" .
+
+<http://example.org/hackathon/HSL_1020> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040123>,
+        <http://example.org/hackathon/HSL_1040126>,
+        <http://example.org/hackathon/HSL_1040144>,
+        <http://example.org/hackathon/HSL_1040148>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "20" .
+
+<http://example.org/hackathon/HSL_1020N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040123>,
+        <http://example.org/hackathon/HSL_1040126>,
+        <http://example.org/hackathon/HSL_1040144>,
+        <http://example.org/hackathon/HSL_1040148>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "20N" .
+
+<http://example.org/hackathon/HSL_1021> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040278>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "21" .
+
+<http://example.org/hackathon/HSL_1021N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020171>,
+        <http://example.org/hackathon/HSL_1040117>,
+        <http://example.org/hackathon/HSL_1040127>,
+        <http://example.org/hackathon/HSL_1040129>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "21N" .
+
+<http://example.org/hackathon/HSL_1022> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040102> ;
+    gtfs:shortName "22" .
+
+<http://example.org/hackathon/HSL_1022K> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040102> ;
+    gtfs:shortName "22K" .
+
+<http://example.org/hackathon/HSL_1023> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020116>,
+        <http://example.org/hackathon/HSL_1020169>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "23" .
+
+<http://example.org/hackathon/HSL_1024> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040277>,
+        <http://example.org/hackathon/HSL_1040284> ;
+    gtfs:shortName "24" .
+
+<http://example.org/hackathon/HSL_1024S> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040277>,
+        <http://example.org/hackathon/HSL_1040284> ;
+    gtfs:shortName "24S" .
+
+<http://example.org/hackathon/HSL_1024X> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020171>,
+        <http://example.org/hackathon/HSL_1020174>,
+        <http://example.org/hackathon/HSL_1040129>,
+        <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1130113> ;
+    gtfs:shortName "24X" .
+
+<http://example.org/hackathon/HSL_1025> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040277>,
+        <http://example.org/hackathon/HSL_1040284> ;
+    gtfs:shortName "25" .
+
+<http://example.org/hackathon/HSL_1030> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040123>,
+        <http://example.org/hackathon/HSL_1040126>,
+        <http://example.org/hackathon/HSL_1040144>,
+        <http://example.org/hackathon/HSL_1040148>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "30" .
+
+<http://example.org/hackathon/HSL_1030N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040123>,
+        <http://example.org/hackathon/HSL_1040126>,
+        <http://example.org/hackathon/HSL_1040144>,
+        <http://example.org/hackathon/HSL_1040148>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "30N" .
+
+<http://example.org/hackathon/HSL_1037> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040271>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "37" .
+
+<http://example.org/hackathon/HSL_1040> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020130>,
+        <http://example.org/hackathon/HSL_1040144>,
+        <http://example.org/hackathon/HSL_1040148>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "40" .
+
+<http://example.org/hackathon/HSL_1040N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020130>,
+        <http://example.org/hackathon/HSL_1040144>,
+        <http://example.org/hackathon/HSL_1040148>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "40N" .
+
+<http://example.org/hackathon/HSL_1041> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040272>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "41" .
+
+<http://example.org/hackathon/HSL_1042> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040273>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "42" .
+
+<http://example.org/hackathon/HSL_1055> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020169>,
+        <http://example.org/hackathon/HSL_1020182>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "55" .
+
+<http://example.org/hackathon/HSL_1061> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020123>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "61" .
+
+<http://example.org/hackathon/HSL_1061N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020123>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "61N" .
+
+<http://example.org/hackathon/HSL_1063> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040274>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "63" .
+
+<http://example.org/hackathon/HSL_1064> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020123>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "64" .
+
+<http://example.org/hackathon/HSL_1065> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020122>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "65" .
+
+<http://example.org/hackathon/HSL_1066> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020122>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "66" .
+
+<http://example.org/hackathon/HSL_1066K> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020122>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "66K" .
+
+<http://example.org/hackathon/HSL_1067> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020122>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "67" .
+
+<http://example.org/hackathon/HSL_1067N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020122>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "67N" .
+
+<http://example.org/hackathon/HSL_1069> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040275>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "69" .
+
+<http://example.org/hackathon/HSL_1069N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040275>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "69N" .
+
+<http://example.org/hackathon/HSL_1070> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040130>,
+        <http://example.org/hackathon/HSL_1040276>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "70" .
+
+<http://example.org/hackathon/HSL_1071> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020113>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "71" .
+
+<http://example.org/hackathon/HSL_1073N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020117>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "73N" .
+
+<http://example.org/hackathon/HSL_1074N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020117>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "74N" .
+
+<http://example.org/hackathon/HSL_1075> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020117>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "75" .
+
+<http://example.org/hackathon/HSL_1077> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020120>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "77" .
+
+<http://example.org/hackathon/HSL_1077N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020113>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "77N" .
+
+<http://example.org/hackathon/HSL_1078> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020113>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "78" .
+
+<http://example.org/hackathon/HSL_1078N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020113>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "78N" .
+
+<http://example.org/hackathon/HSL_1079N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020117>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "79N" .
+
+<http://example.org/hackathon/HSL_1085N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020123>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "85N" .
+
+<http://example.org/hackathon/HSL_1086N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020123>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "86N" .
+
+<http://example.org/hackathon/HSL_1087N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020123>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "87N" .
+
+<http://example.org/hackathon/HSL_1090A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020122>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "90A" .
+
+<http://example.org/hackathon/HSL_1090N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020122>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "90N" .
+
+<http://example.org/hackathon/HSL_1092N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020120>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "92N" .
+
+<http://example.org/hackathon/HSL_1094N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020120>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "94N" .
+
+<http://example.org/hackathon/HSL_1095N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020120>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "95N" .
+
+<http://example.org/hackathon/HSL_1096N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020122>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "96N" .
+
+<http://example.org/hackathon/HSL_1097N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020105>,
+        <http://example.org/hackathon/HSL_1020106>,
+        <http://example.org/hackathon/HSL_1020120>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "97N" .
+
+<http://example.org/hackathon/HSL_2102N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040273>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "102N" .
+
+<http://example.org/hackathon/HSL_2112N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040273>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "112N" .
+
+<http://example.org/hackathon/HSL_2113N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040276>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "113N" .
+
+<http://example.org/hackathon/HSL_2114N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040276>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "114N" .
+
+<http://example.org/hackathon/HSL_2118N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040277>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "118N" .
+
+<http://example.org/hackathon/HSL_2121> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040281>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "121" .
+
+<http://example.org/hackathon/HSL_2121A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040281>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "121A" .
+
+<http://example.org/hackathon/HSL_2125N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040278>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "125N" .
+
+<http://example.org/hackathon/HSL_2147N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040281>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "147N" .
+
+<http://example.org/hackathon/HSL_2164> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040282>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "164" .
+
+<http://example.org/hackathon/HSL_2164K> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040282>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "164K" .
+
+<http://example.org/hackathon/HSL_2165N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040280>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "165N" .
+
+<http://example.org/hackathon/HSL_2200> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020131> ;
+    gtfs:shortName "200" .
+
+<http://example.org/hackathon/HSL_2200N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020131> ;
+    gtfs:shortName "200N" .
+
+<http://example.org/hackathon/HSL_2202N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020131> ;
+    gtfs:shortName "202N" .
+
+<http://example.org/hackathon/HSL_2212> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040279>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "212" .
+
+<http://example.org/hackathon/HSL_2213> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040279>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "213" .
+
+<http://example.org/hackathon/HSL_2213N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040279>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "213N" .
+
+<http://example.org/hackathon/HSL_2227N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020131>,
+        <http://example.org/hackathon/HSL_1040274>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "227N" .
+
+<http://example.org/hackathon/HSL_2231N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020131>,
+        <http://example.org/hackathon/HSL_1040274>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "231N" .
+
+<http://example.org/hackathon/HSL_2235N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020131>,
+        <http://example.org/hackathon/HSL_1040274>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "235N" .
+
+<http://example.org/hackathon/HSL_2321> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020135> ;
+    gtfs:shortName "321" .
+
+<http://example.org/hackathon/HSL_2345> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020133>,
+        <http://example.org/hackathon/HSL_1040271>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "345" .
+
+<http://example.org/hackathon/HSL_2345K> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020133> ;
+    gtfs:shortName "345K" .
+
+<http://example.org/hackathon/HSL_2345N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020133>,
+        <http://example.org/hackathon/HSL_1040271> ;
+    gtfs:shortName "345N" .
+
+<http://example.org/hackathon/HSL_2436N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020243>,
+        <http://example.org/hackathon/HSL_1040278>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "436N" .
+
+<http://example.org/hackathon/HSL_3001D> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020501>,
+        <http://example.org/hackathon/HSL_1020551> ;
+    gtfs:shortName "D" .
+
+<http://example.org/hackathon/HSL_3001H> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020502>,
+        <http://example.org/hackathon/HSL_1020552> ;
+    gtfs:shortName "H" .
+
+<http://example.org/hackathon/HSL_3001I> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020503>,
+        <http://example.org/hackathon/HSL_1020552> ;
+    gtfs:shortName "I" .
+
+<http://example.org/hackathon/HSL_3001K> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020503>,
+        <http://example.org/hackathon/HSL_1020553> ;
+    gtfs:shortName "K" .
+
+<http://example.org/hackathon/HSL_3001R> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020501>,
+        <http://example.org/hackathon/HSL_1020551> ;
+    gtfs:shortName "R" .
+
+<http://example.org/hackathon/HSL_3001T> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020501>,
+        <http://example.org/hackathon/HSL_1020551> ;
+    gtfs:shortName "T" .
+
+<http://example.org/hackathon/HSL_3001Z> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020501>,
+        <http://example.org/hackathon/HSL_1020551> ;
+    gtfs:shortName "Z" .
+
+<http://example.org/hackathon/HSL_3002A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020502>,
+        <http://example.org/hackathon/HSL_1020552> ;
+    gtfs:shortName "A" .
+
+<http://example.org/hackathon/HSL_3002E> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020502>,
+        <http://example.org/hackathon/HSL_1020552> ;
+    gtfs:shortName "E" .
+
+<http://example.org/hackathon/HSL_3002L> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020502>,
+        <http://example.org/hackathon/HSL_1020552> ;
+    gtfs:shortName "L" .
+
+<http://example.org/hackathon/HSL_3002P> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020502>,
+        <http://example.org/hackathon/HSL_1020553> ;
+    gtfs:shortName "P" .
+
+<http://example.org/hackathon/HSL_3002U> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020502>,
+        <http://example.org/hackathon/HSL_1020552> ;
+    gtfs:shortName "U" .
+
+<http://example.org/hackathon/HSL_3002Y> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020502>,
+        <http://example.org/hackathon/HSL_1020552> ;
+    gtfs:shortName "Y" .
+
+<http://example.org/hackathon/HSL_31M1> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020601>,
+        <http://example.org/hackathon/HSL_1020602>,
+        <http://example.org/hackathon/HSL_1020603>,
+        <http://example.org/hackathon/HSL_1020604>,
+        <http://example.org/hackathon/HSL_1040601>,
+        <http://example.org/hackathon/HSL_1040602> ;
+    gtfs:shortName "M1" .
+
+<http://example.org/hackathon/HSL_31M2> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020601>,
+        <http://example.org/hackathon/HSL_1020602>,
+        <http://example.org/hackathon/HSL_1020603>,
+        <http://example.org/hackathon/HSL_1020604>,
+        <http://example.org/hackathon/HSL_1040601>,
+        <http://example.org/hackathon/HSL_1040602> ;
+    gtfs:shortName "M2" .
+
+<http://example.org/hackathon/HSL_4300> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020132>,
+        <http://example.org/hackathon/HSL_1040276>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "300" .
+
+<http://example.org/hackathon/HSL_4300N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020132>,
+        <http://example.org/hackathon/HSL_1040272>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "300N" .
+
+<http://example.org/hackathon/HSL_4400> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040280>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "400" .
+
+<http://example.org/hackathon/HSL_4400N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040280>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "400N" .
+
+<http://example.org/hackathon/HSL_4415N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020243>,
+        <http://example.org/hackathon/HSL_1040279>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "415N" .
+
+<http://example.org/hackathon/HSL_4431> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020245>,
+        <http://example.org/hackathon/HSL_1040276>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "431" .
+
+<http://example.org/hackathon/HSL_4431B> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020245> ;
+    gtfs:shortName "431B" .
+
+<http://example.org/hackathon/HSL_4431N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020128>,
+        <http://example.org/hackathon/HSL_1020245>,
+        <http://example.org/hackathon/HSL_1040276>,
+        <http://example.org/hackathon/HSL_1040284>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "431N" .
+
+<http://example.org/hackathon/HSL_4600> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020119>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "600" .
+
+<http://example.org/hackathon/HSL_4600N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020119>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "600N" .
+
+<http://example.org/hackathon/HSL_4611> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020120>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "611" .
+
+<http://example.org/hackathon/HSL_4717> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020117>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "717" .
+
+<http://example.org/hackathon/HSL_4717K> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020117>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "717K" .
+
+<http://example.org/hackathon/HSL_4717N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020117>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "717N" .
+
+<http://example.org/hackathon/HSL_4718> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020117>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "718" .
+
+<http://example.org/hackathon/HSL_4718A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020117>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "718A" .
+
+<http://example.org/hackathon/HSL_4721N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "721N" .
+
+<http://example.org/hackathon/HSL_4731N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "731N" .
+
+<http://example.org/hackathon/HSL_4739> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "739" .
+
+<http://example.org/hackathon/HSL_6173N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040282>,
+        <http://example.org/hackathon/HSL_1040289> ;
+    gtfs:shortName "173N" .
+
+<http://example.org/hackathon/HSL_7192> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040289>,
+        <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130113> ;
+    gtfs:shortName "192" .
+
+<http://example.org/hackathon/HSL_7192KM> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130113> ;
+    gtfs:shortName "192KM" .
+
+<http://example.org/hackathon/HSL_7192M> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040289>,
+        <http://example.org/hackathon/HSL_1040290> ;
+    gtfs:shortName "192M" .
+
+<http://example.org/hackathon/HSL_7192V> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040289>,
+        <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130113> ;
+    gtfs:shortName "192V" .
+
+<http://example.org/hackathon/HSL_7280> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "280" .
+
+<http://example.org/hackathon/HSL_7280A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "280A" .
+
+<http://example.org/hackathon/HSL_7282> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "282" .
+
+<http://example.org/hackathon/HSL_7282B> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "282B" .
+
+<http://example.org/hackathon/HSL_7285> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130139> ;
+    gtfs:shortName "285" .
+
+<http://example.org/hackathon/HSL_7385> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040291> ;
+    gtfs:shortName "385" .
+
+<http://example.org/hackathon/HSL_7385A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1130105> ;
+    gtfs:shortName "385A" .
+
+<http://example.org/hackathon/HSL_7455> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "455" .
+
+<http://example.org/hackathon/HSL_7455A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "455A" .
+
+<http://example.org/hackathon/HSL_7456> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "456" .
+
+<http://example.org/hackathon/HSL_7456A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "456A" .
+
+<http://example.org/hackathon/HSL_7456N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "456N" .
+
+<http://example.org/hackathon/HSL_7457> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "457" .
+
+<http://example.org/hackathon/HSL_7457A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "457A" .
+
+<http://example.org/hackathon/HSL_7464> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "464" .
+
+<http://example.org/hackathon/HSL_7465> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "465" .
+
+<http://example.org/hackathon/HSL_7465B> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291>,
+        <http://example.org/hackathon/HSL_1130105>,
+        <http://example.org/hackathon/HSL_1130111> ;
+    gtfs:shortName "465B" .
+
+<http://example.org/hackathon/HSL_7848> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1040290>,
+        <http://example.org/hackathon/HSL_1040291> ;
+    gtfs:shortName "848" .
+
+<http://example.org/hackathon/HSL_9633N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020201>,
+        <http://example.org/hackathon/HSL_1020204> ;
+    gtfs:shortName "633N" .
+
+<http://example.org/hackathon/HSL_9643N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020201>,
+        <http://example.org/hackathon/HSL_1020204> ;
+    gtfs:shortName "643N" .
+
+<http://example.org/hackathon/HSL_9665N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020201>,
+        <http://example.org/hackathon/HSL_1020204> ;
+    gtfs:shortName "665N" .
+
+<http://example.org/hackathon/HSL_9785> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "785" .
+
+<http://example.org/hackathon/HSL_9785K> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "785K" .
+
+<http://example.org/hackathon/HSL_9787> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "787" .
+
+<http://example.org/hackathon/HSL_9787A> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "787A" .
+
+<http://example.org/hackathon/HSL_9787K> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "787K" .
+
+<http://example.org/hackathon/HSL_9788> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "788" .
+
+<http://example.org/hackathon/HSL_9788K> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "788K" .
+
+<http://example.org/hackathon/HSL_9841N> a gtfs:Route ;
+    gtfs:serves <http://example.org/hackathon/HSL_1020115>,
+        <http://example.org/hackathon/HSL_1020201> ;
+    gtfs:shortName "841N" .
+
+<http://example.org/hackathon/HSL_1020112> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17076"^^xsd:float ;
+    geo1:long "24.94268"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020116> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17108"^^xsd:float ;
+    geo1:long "24.94283"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020134> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17034"^^xsd:float ;
+    geo1:long "24.94382"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020135> a gtfs:Stop ;
+    gtfs:name "Elielinaukio" ;
+    geo1:lat "60.171861"^^xsd:float ;
+    geo1:long "24.939722"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020175> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17113"^^xsd:float ;
+    geo1:long "24.9448"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020177> a gtfs:Stop ;
+    gtfs:name "Lasipalatsi" ;
+    geo1:lat "60.17027"^^xsd:float ;
+    geo1:long "24.937555"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020182> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17098"^^xsd:float ;
+    geo1:long "24.9427"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020446> a gtfs:Stop ;
+    gtfs:name "Ylioppilastalo" ;
+    geo1:lat "60.168781"^^xsd:float ;
+    geo1:long "24.94247"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1030424> a gtfs:Stop ;
+    gtfs:name "Kauppatori" ;
+    geo1:lat "60.16736"^^xsd:float ;
+    geo1:long "24.95171"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1030429> a gtfs:Stop ;
+    gtfs:name "Kolmikulma" ;
+    geo1:lat "60.165062"^^xsd:float ;
+    geo1:long "24.943792"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040101> a gtfs:Stop ;
+    gtfs:name "Fredrikinkatu" ;
+    geo1:lat "60.164802"^^xsd:float ;
+    geo1:long "24.938543"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040113> a gtfs:Stop ;
+    gtfs:name "Erottaja" ;
+    geo1:lat "60.16607"^^xsd:float ;
+    geo1:long "24.942186"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040114> a gtfs:Stop ;
+    gtfs:name "Erottaja" ;
+    geo1:lat "60.16623"^^xsd:float ;
+    geo1:long "24.942384"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040117> a gtfs:Stop ;
+    gtfs:name "Simonkatu" ;
+    geo1:lat "60.168737"^^xsd:float ;
+    geo1:long "24.935247"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040127> a gtfs:Stop ;
+    gtfs:name "Kampintori" ;
+    geo1:lat "60.1684"^^xsd:float ;
+    geo1:long "24.93178"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040138> a gtfs:Stop ;
+    gtfs:name "Fredrikinkatu" ;
+    geo1:lat "60.16465"^^xsd:float ;
+    geo1:long "24.93775"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010124> a gtfs:Stop ;
+    gtfs:name "Snellmaninkatu" ;
+    geo1:lat "60.17401"^^xsd:float ;
+    geo1:long "24.95236"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010125> a gtfs:Stop ;
+    gtfs:name "Snellmaninkatu" ;
+    geo1:lat "60.174106"^^xsd:float ;
+    geo1:long "24.952088"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010419> a gtfs:Stop ;
+    gtfs:name "Hallituskatu" ;
+    geo1:lat "60.17014"^^xsd:float ;
+    geo1:long "24.953501"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010422> a gtfs:Stop ;
+    gtfs:name "Kansallisarkisto" ;
+    geo1:lat "60.17183"^^xsd:float ;
+    geo1:long "24.95326"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010425> a gtfs:Stop ;
+    gtfs:name "Ritarihuone" ;
+    geo1:lat "60.16912"^^xsd:float ;
+    geo1:long "24.95556"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010428> a gtfs:Stop ;
+    gtfs:name "Snellmaninkatu" ;
+    geo1:lat "60.17401"^^xsd:float ;
+    geo1:long "24.95236"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020119> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17095"^^xsd:float ;
+    geo1:long "24.94308"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020130> a gtfs:Stop ;
+    gtfs:name "Elielinaukio" ;
+    geo1:lat "60.171397"^^xsd:float ;
+    geo1:long "24.939066"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020132> a gtfs:Stop ;
+    gtfs:name "Elielinaukio" ;
+    geo1:lat "60.171921"^^xsd:float ;
+    geo1:long "24.939716"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020243> a gtfs:Stop ;
+    gtfs:name "Elielinaukio" ;
+    geo1:lat "60.172101"^^xsd:float ;
+    geo1:long "24.939698"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020503> a gtfs:Stop ;
+    gtfs:name "Helsinki" ;
+    geo1:lat "60.172992"^^xsd:float ;
+    geo1:long "24.942044"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020553> a gtfs:Stop ;
+    gtfs:name "Helsinki" ;
+    geo1:lat "60.172987"^^xsd:float ;
+    geo1:long "24.941576"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020601> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.170379"^^xsd:float ;
+    geo1:long "24.939846"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020602> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.170388"^^xsd:float ;
+    geo1:long "24.939845"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020603> a gtfs:Stop ;
+    gtfs:name "Helsingin yliopisto" ;
+    geo1:lat "60.172009"^^xsd:float ;
+    geo1:long "24.947915"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020604> a gtfs:Stop ;
+    gtfs:name "Helsingin yliopisto" ;
+    geo1:lat "60.172026"^^xsd:float ;
+    geo1:long "24.94785"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1030401> a gtfs:Stop ;
+    gtfs:name "Kolmikulma" ;
+    geo1:lat "60.165325"^^xsd:float ;
+    geo1:long "24.94354"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1030425> a gtfs:Stop ;
+    gtfs:name "Kauppatori" ;
+    geo1:lat "60.16761"^^xsd:float ;
+    geo1:long "24.952217"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1030428> a gtfs:Stop ;
+    gtfs:name "Kolmikulma" ;
+    geo1:lat "60.165272"^^xsd:float ;
+    geo1:long "24.943932"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040102> a gtfs:Stop ;
+    gtfs:name "Fredrikinkatu" ;
+    geo1:lat "60.164261"^^xsd:float ;
+    geo1:long "24.936553"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040129> a gtfs:Stop ;
+    gtfs:name "Arkadian puisto" ;
+    geo1:lat "60.17112"^^xsd:float ;
+    geo1:long "24.93338"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040272> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.169092"^^xsd:float ;
+    geo1:long "24.931967"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040275> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.169022"^^xsd:float ;
+    geo1:long "24.931713"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040412> a gtfs:Stop ;
+    gtfs:name "Kamppi (M)" ;
+    geo1:lat "60.168357"^^xsd:float ;
+    geo1:long "24.931159"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040601> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.16883"^^xsd:float ;
+    geo1:long "24.931215"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040602> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.168853"^^xsd:float ;
+    geo1:long "24.931183"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1070427> a gtfs:Stop ;
+    gtfs:name "Johanneksenkirkko" ;
+    geo1:lat "60.16332"^^xsd:float ;
+    geo1:long "24.94539"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130437> a gtfs:Stop ;
+    gtfs:name "Luonnontiet.museo" ;
+    geo1:lat "60.171089"^^xsd:float ;
+    geo1:long "24.931274"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020133> a gtfs:Stop ;
+    gtfs:name "Elielinaukio" ;
+    geo1:lat "60.171801"^^xsd:float ;
+    geo1:long "24.939727"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020171> a gtfs:Stop ;
+    gtfs:name "Postitalo" ;
+    geo1:lat "60.170872"^^xsd:float ;
+    geo1:long "24.938492"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020174> a gtfs:Stop ;
+    gtfs:name "Lasipalatsi" ;
+    geo1:lat "60.17033"^^xsd:float ;
+    geo1:long "24.93807"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020204> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17165"^^xsd:float ;
+    geo1:long "24.94327"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020245> a gtfs:Stop ;
+    gtfs:name "Elielinaukio" ;
+    geo1:lat "60.172161"^^xsd:float ;
+    geo1:long "24.939692"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020447> a gtfs:Stop ;
+    gtfs:name "Ylioppilastalo" ;
+    geo1:lat "60.168857"^^xsd:float ;
+    geo1:long "24.942145"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040271> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.169119"^^xsd:float ;
+    geo1:long "24.932058"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040273> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.169066"^^xsd:float ;
+    geo1:long "24.931895"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040278> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.16895"^^xsd:float ;
+    geo1:long "24.93146"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040280> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.1689"^^xsd:float ;
+    geo1:long "24.93128"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040281> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.16887"^^xsd:float ;
+    geo1:long "24.93119"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040282> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.16885"^^xsd:float ;
+    geo1:long "24.93109"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040409> a gtfs:Stop ;
+    gtfs:name "Kampintori" ;
+    geo1:lat "60.167771"^^xsd:float ;
+    geo1:long "24.931218"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040413> a gtfs:Stop ;
+    gtfs:name "Kamppi (M)" ;
+    geo1:lat "60.16894"^^xsd:float ;
+    geo1:long "24.930617"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130436> a gtfs:Stop ;
+    gtfs:name "Luonnontiet.museo" ;
+    geo1:lat "60.171181"^^xsd:float ;
+    geo1:long "24.93099"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010424> a gtfs:Stop ;
+    gtfs:name "Ritarihuone" ;
+    geo1:lat "60.169201"^^xsd:float ;
+    geo1:long "24.956227"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020113> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17072"^^xsd:float ;
+    geo1:long "24.94324"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020169> a gtfs:Stop ;
+    gtfs:name "Kaisaniemenpuisto" ;
+    geo1:lat "60.173545"^^xsd:float ;
+    geo1:long "24.94981"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020401> a gtfs:Stop ;
+    gtfs:name "Mikonkatu" ;
+    geo1:lat "60.170229"^^xsd:float ;
+    geo1:long "24.945434"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020402> a gtfs:Stop ;
+    gtfs:name "Mikonkatu" ;
+    geo1:lat "60.170111"^^xsd:float ;
+    geo1:long "24.945273"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020501> a gtfs:Stop ;
+    gtfs:name "Helsinki" ;
+    geo1:lat "60.171298"^^xsd:float ;
+    geo1:long "24.941671"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020551> a gtfs:Stop ;
+    gtfs:name "Helsinki" ;
+    geo1:lat "60.1713"^^xsd:float ;
+    geo1:long "24.941401"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040123> a gtfs:Stop ;
+    gtfs:name "Bulevardi" ;
+    geo1:lat "60.165169"^^xsd:float ;
+    geo1:long "24.935955"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040126> a gtfs:Stop ;
+    gtfs:name "Lapinlahden puist." ;
+    geo1:lat "60.165618"^^xsd:float ;
+    geo1:long "24.931375"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040274> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.16904"^^xsd:float ;
+    geo1:long "24.931804"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040277> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.16898"^^xsd:float ;
+    geo1:long "24.93155"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040279> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.16892"^^xsd:float ;
+    geo1:long "24.93137"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130113> a gtfs:Stop ;
+    gtfs:name "Pohj. Rautatiekatu" ;
+    geo1:lat "60.170862"^^xsd:float ;
+    geo1:long "24.930898"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130439> a gtfs:Stop ;
+    gtfs:name "Hanken" ;
+    geo1:lat "60.171203"^^xsd:float ;
+    geo1:long "24.92551"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010420> a gtfs:Stop ;
+    gtfs:name "Hallituskatu" ;
+    geo1:lat "60.17036"^^xsd:float ;
+    geo1:long "24.95353"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010421> a gtfs:Stop ;
+    gtfs:name "Kansallisarkisto" ;
+    geo1:lat "60.17216"^^xsd:float ;
+    geo1:long "24.95335"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1010427> a gtfs:Stop ;
+    gtfs:name "Snellmaninkatu" ;
+    geo1:lat "60.174106"^^xsd:float ;
+    geo1:long "24.952088"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020448> a gtfs:Stop ;
+    gtfs:name "Aleksanterinkatu" ;
+    geo1:lat "60.168881"^^xsd:float ;
+    geo1:long "24.946748"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020450> a gtfs:Stop ;
+    gtfs:name "Senaatintori" ;
+    geo1:lat "60.168968"^^xsd:float ;
+    geo1:long "24.950423"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040408> a gtfs:Stop ;
+    gtfs:name "Kampintori" ;
+    geo1:lat "60.16795"^^xsd:float ;
+    geo1:long "24.931494"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020120> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17132"^^xsd:float ;
+    geo1:long "24.94302"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020123> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17134"^^xsd:float ;
+    geo1:long "24.94329"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020131> a gtfs:Stop ;
+    gtfs:name "Elielinaukio" ;
+    geo1:lat "60.171741"^^xsd:float ;
+    geo1:long "24.939733"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040144> a gtfs:Stop ;
+    gtfs:name "Kamppi (M)" ;
+    geo1:lat "60.169598"^^xsd:float ;
+    geo1:long "24.929668"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040148> a gtfs:Stop ;
+    gtfs:name "Kamppi (M)" ;
+    geo1:lat "60.169393"^^xsd:float ;
+    geo1:long "24.929748"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040276> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.169"^^xsd:float ;
+    geo1:long "24.93164"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040411> a gtfs:Stop ;
+    gtfs:name "Simonkatu" ;
+    geo1:lat "60.168737"^^xsd:float ;
+    geo1:long "24.935247"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040438> a gtfs:Stop ;
+    gtfs:name "Fredrikinkatu" ;
+    geo1:lat "60.16465"^^xsd:float ;
+    geo1:long "24.937768"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130433> a gtfs:Stop ;
+    gtfs:name "Kansallismuseo" ;
+    geo1:lat "60.17479"^^xsd:float ;
+    geo1:long "24.932594"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130438> a gtfs:Stop ;
+    gtfs:name "Hanken" ;
+    geo1:lat "60.171295"^^xsd:float ;
+    geo1:long "24.925081"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020443> a gtfs:Stop ;
+    gtfs:name "Lasipalatsi" ;
+    geo1:lat "60.170231"^^xsd:float ;
+    geo1:long "24.937846"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020449> a gtfs:Stop ;
+    gtfs:name "Aleksanterinkatu" ;
+    geo1:lat "60.168947"^^xsd:float ;
+    geo1:long "24.946212"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020455> a gtfs:Stop ;
+    gtfs:name "Senaatintori" ;
+    geo1:lat "60.169047"^^xsd:float ;
+    geo1:long "24.94991"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020457> a gtfs:Stop ;
+    gtfs:name "Kaisaniemenkatu" ;
+    geo1:lat "60.171856"^^xsd:float ;
+    geo1:long "24.947655"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020459> a gtfs:Stop ;
+    gtfs:name "Kaisaniemenpuisto" ;
+    geo1:lat "60.173555"^^xsd:float ;
+    geo1:long "24.949591"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020502> a gtfs:Stop ;
+    gtfs:name "Helsinki" ;
+    geo1:lat "60.17272"^^xsd:float ;
+    geo1:long "24.939911"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020552> a gtfs:Stop ;
+    gtfs:name "Helsinki" ;
+    geo1:lat "60.172725"^^xsd:float ;
+    geo1:long "24.939595"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040410> a gtfs:Stop ;
+    gtfs:name "Simonkatu" ;
+    geo1:lat "60.168809"^^xsd:float ;
+    geo1:long "24.935728"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040445> a gtfs:Stop ;
+    gtfs:name "Erottaja" ;
+    geo1:lat "60.16623"^^xsd:float ;
+    geo1:long "24.942384"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020122> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17085"^^xsd:float ;
+    geo1:long "24.94333"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020458> a gtfs:Stop ;
+    gtfs:name "Kaisaniemenkatu" ;
+    geo1:lat "60.17163"^^xsd:float ;
+    geo1:long "24.94737"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020460> a gtfs:Stop ;
+    gtfs:name "Kaisaniemenpuisto" ;
+    geo1:lat "60.173313"^^xsd:float ;
+    geo1:long "24.94913"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130432> a gtfs:Stop ;
+    gtfs:name "Kansallismuseo" ;
+    geo1:lat "60.175233"^^xsd:float ;
+    geo1:long "24.93231"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020117> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17133"^^xsd:float ;
+    geo1:long "24.94277"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020464> a gtfs:Stop ;
+    gtfs:name "Ylioppilastalo" ;
+    geo1:lat "60.167811"^^xsd:float ;
+    geo1:long "24.941483"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020444> a gtfs:Stop ;
+    gtfs:name "Lasipalatsi" ;
+    geo1:lat "60.170461"^^xsd:float ;
+    geo1:long "24.937728"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040401> a gtfs:Stop ;
+    gtfs:name "Fredrikinkatu" ;
+    geo1:lat "60.164802"^^xsd:float ;
+    geo1:long "24.938543"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040437> a gtfs:Stop ;
+    gtfs:name "Erottaja" ;
+    geo1:lat "60.16607"^^xsd:float ;
+    geo1:long "24.942186"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130111> a gtfs:Stop ;
+    gtfs:name "Kansallismuseo" ;
+    geo1:lat "60.17419"^^xsd:float ;
+    geo1:long "24.93349"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020115> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17141"^^xsd:float ;
+    geo1:long "24.94266"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020453> a gtfs:Stop ;
+    gtfs:name "Päärautatieasema" ;
+    geo1:lat "60.170367"^^xsd:float ;
+    geo1:long "24.941309"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020454> a gtfs:Stop ;
+    gtfs:name "Päärautatieasema" ;
+    geo1:lat "60.170434"^^xsd:float ;
+    geo1:long "24.9407"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040130> a gtfs:Stop ;
+    gtfs:name "Fredrikinkatu" ;
+    geo1:lat "60.17016"^^xsd:float ;
+    geo1:long "24.92995"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130105> a gtfs:Stop ;
+    gtfs:name "Kansallismuseo" ;
+    geo1:lat "60.17391"^^xsd:float ;
+    geo1:long "24.93328"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020463> a gtfs:Stop ;
+    gtfs:name "Ylioppilastalo" ;
+    geo1:lat "60.168129"^^xsd:float ;
+    geo1:long "24.941236"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020128> a gtfs:Stop ;
+    gtfs:name "Elielinaukio" ;
+    geo1:lat "60.171203"^^xsd:float ;
+    geo1:long "24.93958"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040289> a gtfs:Stop ;
+    gtfs:name "Kamppi, tulo" ;
+    geo1:lat "60.1688"^^xsd:float ;
+    geo1:long "24.93012"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040291> a gtfs:Stop ;
+    gtfs:name "Hki linja-autoasema" ;
+    geo1:lat "60.169588"^^xsd:float ;
+    geo1:long "24.933372"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040290> a gtfs:Stop ;
+    gtfs:name "Hki linja-autoasema" ;
+    geo1:lat "60.169711"^^xsd:float ;
+    geo1:long "24.933736"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1040284> a gtfs:Stop ;
+    gtfs:name "Kamppi" ;
+    geo1:lat "60.1688"^^xsd:float ;
+    geo1:long "24.93093"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020105> a gtfs:Stop ;
+    gtfs:name "Kaisaniemenpuisto" ;
+    geo1:lat "60.17502"^^xsd:float ;
+    geo1:long "24.95049"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020106> a gtfs:Stop ;
+    gtfs:name "Kaisaniemenpuisto" ;
+    geo1:lat "60.17348"^^xsd:float ;
+    geo1:long "24.94914"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1130139> a gtfs:Stop ;
+    gtfs:name "Hanken" ;
+    geo1:lat "60.171204"^^xsd:float ;
+    geo1:long "24.926277"^^xsd:float .
+
+<http://example.org/hackathon/HSL_1020201> a gtfs:Stop ;
+    gtfs:name "Rautatientori" ;
+    geo1:lat "60.17192"^^xsd:float ;
+    geo1:long "24.94376"^^xsd:float .
+
