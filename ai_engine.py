@@ -64,23 +64,14 @@ class VectorSearchEngine:
         return self.model.encode(text_list, convert_to_tensor=True)
 
     def fit_index(self, data_objects, text_key='description'):
-            """
-            Creates an in-memory vector index for rapid searching.
-            data_objects: List of dicts (e.g., POIs from Neo4j)
-            """
             self.cached_metadata = data_objects
-            
-            # FIX: explicitly handle None values even if the key exists
+            # FIX: Force conversion to string and handle None explicitly
             corpus = []
             for obj in data_objects:
-                text = obj.get(text_key)
-                # If text is None (null in DB) or empty, use empty string
-                if text is None:
-                    corpus.append("")
-                else:
-                    corpus.append(str(text))
-                    
-            self.cached_embeddings = self.encode_text(corpus)
+                val = obj.get(text_key)
+                corpus.append(str(val) if val is not None else "")
+                
+            self.cached_embeddings = self.model.encode(corpus, convert_to_tensor=True)
             print(f"✅ Indexed {len(corpus)} items semantically.")
 
     def search(self, query, top_k=5):
