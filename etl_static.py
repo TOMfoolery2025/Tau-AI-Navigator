@@ -1,59 +1,55 @@
 import pandas as pd
 import os
+from collections import Counter
 
 GTFS_PATH = "/app/import_stage"
 
 def load_static_lookups():
-    print("📂 Loading Static GTFS Data (Multi-Modal)...")
+    print("📂 Loading Static GTFS Data...")
     
-    # GTFS Route Types Standard:
-    # 0=Tram, 1=Subway, 3=Bus, 4=Ferry, 109=Train (HSL specific)
+    # 1. ROBUST MODE MAPPING
     MODE_MAP = {
-        '0': 'TRAM', '900': 'TRAM',
-        '1': 'METRO', '401': 'METRO',
-        '3': 'BUS', '700': 'BUS',
+        '0': 'TRAM', '900': 'TRAM', 
+        '1': 'METRO', '400': 'METRO', '401': 'METRO',
+        '2': 'TRAIN', '100': 'TRAIN', '109': 'TRAIN',
         '4': 'FERRY', '1000': 'FERRY',
-        '109': 'TRAIN', '100': 'TRAIN'
+        '3': 'BUS', '700': 'BUS', '701': 'BUS', '702': 'BUS', '704': 'BUS'
     }
-
+    
+    routes_dict = {}
     try:
         routes = pd.read_csv(os.path.join(GTFS_PATH, "routes.txt"), dtype=str)
-        routes_dict = {}
         for _, row in routes.iterrows():
-            r_id = row['route_id'].replace("HSL:", "")
-            r_type_code = str(row.get('route_type', '3'))
-            
-            # Map code to string (e.g. "1" -> "METRO")
-            mode_str = MODE_MAP.get(r_type_code, 'BUS') 
-            
+            r_id = row['route_id'].replace("HSL:", "").strip()
+            r_type = str(row.get('route_type', '3'))
             routes_dict[r_id] = {
-                "short": row['route_short_name'],
-                "long": row['route_long_name'],
-                "mode": mode_str 
+                "short": row.get('route_short_name', r_id),
+                "long": row.get('route_long_name', ''),
+                "mode": MODE_MAP.get(r_type, 'BUS')
             }
-        print(f"   -> Loaded {len(routes_dict)} routes (Buses, Trams, Trains, Ferries).")
-    except Exception as e:
-        print(f"   ❌ Error loading routes.txt: {e}")
-        routes_dict = {}
+    except: pass
 
+    # 2. SMART DIRECTION LOOKUP
+    trip_lookup = {}
+    dir_counters = {}     
+    direction_lookup = {} 
+    
     try:
         trips = pd.read_csv(os.path.join(GTFS_PATH, "trips.txt"), dtype=str)
-        trip_lookup = {}
-        direction_lookup = {}
-        
         for _, row in trips.iterrows():
-            t_id = row['trip_id'].replace("HSL:", "")
-            r_id = row['route_id'].replace("HSL:", "")
-            d_id = row['direction_id']
-            headsign = row['trip_headsign']
+            t_id = row['trip_id'].replace("HSL:", "").strip()
+            r_id = row['route_id'].replace("HSL:", "").strip()
+            d_id = str(row.get('direction_id', '0'))
+            headsign = row.get('trip_headsign', 'Unknown')
             
             trip_lookup[t_id] = headsign
-            direction_lookup[(r_id, d_id)] = headsign
             
-        print(f"   -> Loaded {len(trip_lookup)} trips.")
-    except Exception as e:
-        print(f"   ❌ Error loading trips.txt: {e}")
-        trip_lookup = {}
-        direction_lookup = {}
+            key = (r_id, d_id)
+            if key not in dir_counters: dir_counters[key] = Counter()
+            dir_counters[key][headsign] += 1
+            
+        for key, counter in dir_counters.items():
+            direction_lookup[key] = counter.most_common(1)[0][0]
+    except: pass
 
     return routes_dict, trip_lookup, direction_lookup

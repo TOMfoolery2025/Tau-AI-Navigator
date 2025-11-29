@@ -1,19 +1,13 @@
 import requests
-import pandas as pd
-import os
 import datetime
 from neo4j import GraphDatabase
-from ai_engine import TextNormalizer # Import the new Engine
-
-# --- CONFIG ---
-IMPORT_PATH = "/var/lib/neo4j/import"
 
 def log(message):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"[{timestamp}] {message}")
 
 def fetch_landmarks_extended():
-    """Fetches a broader range of POIs for semantic enrichment"""
+    """Fetches POIs from Overpass API"""
     overpass_url = "http://overpass-api.de/api/interpreter"
     overpass_query = """
     [out:json][timeout:25];
@@ -32,82 +26,73 @@ def fetch_landmarks_extended():
         log(f"Error fetching landmarks: {e}")
         return []
 
-def run_enrichment(driver):
-    log("Starting Semantic Enrichment Process (Expert Mode)...")
+def get_placeholder_image(tag_type):
+    """Assigns a high-quality 'Vibe Image' based on category"""
+    # Hackathon Trick: Use specific Unsplash IDs for reliable, beautiful images
+    IMAGES = {
+        'museum': 'https://images.unsplash.com/photo-1545989253-02cc26577f88?w=400&q=80', # Art
+        'gallery': 'https://images.unsplash.com/photo-1518998053901-5348d3969105?w=400&q=80', # Gallery
+        'park': 'https://images.unsplash.com/photo-1496347312933-125c92842fa3?w=400&q=80',   # Nature
+        'viewpoint': 'https://images.unsplash.com/photo-1502786129293-79981cb61638?w=400&q=80', # View
+        'attraction': 'https://images.unsplash.com/photo-1548957175-84f0f9af659e?w=400&q=80', # City
+        'sauna': 'https://images.unsplash.com/photo-1574673627192-3c46927d2c3c?w=400&q=80',   # Sauna
+        'default': 'https://images.unsplash.com/photo-1538332539566-b5d1e679a636?w=400&q=80'  # Helsinki Cathedral
+    }
     
-    # 1. Init NLP Engine
-    normalizer = TextNormalizer()
+    tag_lower = str(tag_type).lower()
+    if 'museum' in tag_lower or 'art' in tag_lower: return IMAGES['museum']
+    if 'park' in tag_lower or 'garden' in tag_lower: return IMAGES['park']
+    if 'view' in tag_lower: return IMAGES['viewpoint']
+    if 'sauna' in tag_lower: return IMAGES['sauna']
+    return IMAGES['default']
+
+def run_enrichment(driver):
+    log("Starting Semantic Enrichment...")
     
     landmarks = fetch_landmarks_extended()
     log(f"Fetched {len(landmarks)} raw POIs.")
 
     with driver.session() as session:
-        # A. Import Raw Landmarks
-        log("Creating PointOfInterest Nodes...")
-        landmark_query = """
+        # A. Import POIs with Images
+        log("Creating Rich POI Nodes...")
+        
+        poi_batch = []
+        for row in landmarks:
+            if 'tags' in row and 'name' in row['tags']:
+                tags = row['tags']
+                # Determine main type
+                raw_type = tags.get('tourism') or tags.get('leisure') or tags.get('amenity') or 'landmark'
+                
+                poi_batch.append({
+                    "id": row['id'],
+                    "name": tags['name'],
+                    "lat": row['lat'],
+                    "lon": row['lon'],
+                    "type": raw_type,
+                    "desc": f"{tags.get('name')} ({raw_type})",
+                    # Generate Image URL
+                    "image": get_placeholder_image(raw_type)
+                })
+
+        # Batch Write
+        query = """
         UNWIND $batch AS row
         MERGE (p:PointOfInterest {id: row.id})
-        SET p.name = row.tags.name, 
-            p.raw_type = row.tags.tourism, 
+        SET p.name = row.name, 
+            p.raw_type = row.type, 
             p.lat = row.lat, 
             p.lon = row.lon,
-            p.description = row.tags.name + ' ' + coalesce(row.tags.tourism, '') + ' ' + coalesce(row.tags.historic, '')
+            p.description = row.desc,
+            p.image_url = row.image
         """
-        # Filter POIs that actually have names
-        valid_pois = [x for x in landmarks if 'tags' in x and 'name' in x['tags']]
-        session.run(landmark_query, batch=valid_pois)
+        session.run(query, batch=poi_batch)
 
-        # B. Spatial Inference (IS_NEAR)
-        log("Inferring Spatial Links...")
+        # B. Link Stops to POIs (Distance Based)
+        log("Linking Stops to POIs...")
         session.run("""
         MATCH (s:Stop), (p:PointOfInterest)
         WHERE point.distance(point({latitude: s.lat, longitude: s.lon}), point({latitude: p.lat, longitude: p.lon})) < 400
         MERGE (s)-[r:IS_NEAR]->(p)
-        """)
-
-        # C. Label Propagation (The TVA Logic)
-        # We bubble up concepts: POI -> Stop -> Route
-        log("Executing Label Propagation (POI -> Stop)...")
-        
-        # 1. Pull data for Python-side processing (Cypher is bad at text NLP)
-        result = session.run("""
-            MATCH (s:Stop)-[:IS_NEAR]->(p:PointOfInterest)
-            WHERE p.name IS NOT NULL
-            RETURN s.id as stop_id, collect(p.name + ' ' + coalesce(p.raw_type, '')) as poi_texts
-        """)
-        
-        stop_tags = []
-        for record in result:
-            # Combine all text from nearby POIs
-            combined_text = " ".join(record['poi_texts'])
-            # Use TVA Normalizer to extract clean concepts (e.g., "art", "museum", "history")
-            concepts = normalizer.clean_and_stem(combined_text)
-            
-            if concepts:
-                stop_tags.append({"id": record['stop_id'], "tags": concepts})
-        
-        # 2. Write Tags back to Graph
-        session.run("""
-            UNWIND $batch as row
-            MATCH (s:Stop {id: row.id})
-            SET s.semantic_tags = row.tags
-        """, batch=stop_tags)
-        
-        log(f"Propagated labels to {len(stop_tags)} stops.")
-        
-        # D. Route Classification (Vibe Check)
-        # If a Route serves many 'art' stops, it becomes an 'Art Route'
-        session.run("""
-            MATCH (r:Route)-[:OPERATES_ON]->(s:Stop)
-            WHERE s.semantic_tags IS NOT NULL
-            WITH r, apoc.coll.flatten(collect(s.semantic_tags)) as all_tags
-            WITH r, all_tags, size(all_tags) as total_count
-            WHERE total_count > 5
-            
-            // Heuristic for simple classification based on stems
-            SET r.vibe_art = size([x in all_tags WHERE x CONTAINS 'art' OR x CONTAINS 'museu']) > 2,
-                r.vibe_nature = size([x in all_tags WHERE x CONTAINS 'park' OR x CONTAINS 'water']) > 2,
-                r.vibe_historic = size([x in all_tags WHERE x CONTAINS 'hist' OR x CONTAINS 'cath']) > 2
         """)
 
     log("Enrichment Complete.")

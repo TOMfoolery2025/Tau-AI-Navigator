@@ -5,6 +5,7 @@ import json
 import requests
 import pandas as pd
 import pydeck as pdk
+import time
 from datetime import datetime, timedelta
 from groq import Groq
 from google.transit import gtfs_realtime_pb2
@@ -12,36 +13,20 @@ from neo4j import GraphDatabase
 from streamlit_js_eval import get_geolocation
 from streamlit_searchbox import st_searchbox 
 
-# --- CUSTOM MODULES ---
 from ai_engine import VectorSearchEngine
 from etl_neo4j import run_neo4j_import
 from etl_enrich import run_enrichment
 from etl_static import load_static_lookups 
 
-# --- 1. CONFIGURATION ---
-st.set_page_config(layout="wide", page_title="Helsinki AI Navigator", page_icon="🚋")
+# --- CONFIGURATION ---
+st.set_page_config(layout="wide", page_title="Tau AI Navigator", page_icon="🧠")
 
-# --- MERGED CSS (Mate's Glass UI + Your Z-Index Fix) ---
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-
-    /* GLOBAL THEME */
-    .stApp {
-        background: radial-gradient(circle at 10% 20%, rgb(15, 20, 35) 0%, rgb(18, 28, 45) 90%);
-        font-family: 'Inter', sans-serif;
-        color: #E0E0E0;
-    }
-
-    /* FIX Z-INDEX FOR SEARCHBOX (Crucial for your feature) */
+    .stApp { background: radial-gradient(circle at 10% 20%, rgb(15, 20, 35) 0%, rgb(18, 28, 45) 90%); font-family: 'Inter', sans-serif; color: #E0E0E0; }
     div[data-testid="stVerticalBlock"] > div:has(div.stSearchbox) { z-index: 1000; }
     
-    /* REMOVE STREAMLIT PADDING/FOOTER */
-    .block-container { padding-top: 2rem; padding-bottom: 2rem; }
-    header { visibility: hidden; }
-    footer { visibility: hidden; }
-
-    /* HERO TITLE */
     .hero-title { 
         font-size: 3.5rem; 
         font-weight: 800; 
@@ -51,29 +36,18 @@ st.markdown("""
         -webkit-text-fill-color: transparent; 
         margin-bottom: 0;
     }
-
-    /* GLASS CARDS */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        padding: 20px;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    
+    .tech-footer {
+        font-size: 0.8rem;
+        color: #667;
+        text-align: center;
+        margin-top: 20px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    /* BUTTONS */
-    .stButton > button {
-        background: linear-gradient(90deg, #00C6FF, #0072FF);
-        color: white;
-        border: none;
-        padding: 0.6rem 1.2rem;
-        border-radius: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        width: 100%;
-    }
+    .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 20px; margin-bottom: 15px; }
+    .stButton > button { background: linear-gradient(90deg, #00C6FF, #0072FF); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 12px; font-weight: 600; text-transform: uppercase; width: 100%; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -83,13 +57,14 @@ NEO4J_AUTH = (os.getenv("NEO4J_USER", "neo4j"), os.getenv("NEO4J_PASSWORD", "pas
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 HSL_KEY = os.getenv("DIGITRANSIT_API_KEY")
 
-# --- 2. INITIALIZATION & CACHING ---
-
+# --- STATE ---
 if 'start_loc' not in st.session_state: st.session_state['start_loc'] = None
 if 'end_loc' not in st.session_state: st.session_state['end_loc'] = None
 if 'semantic_pois' not in st.session_state: st.session_state['semantic_pois'] = None
 if 'route_geometry' not in st.session_state: st.session_state['route_geometry'] = None
+if 'use_fallback_line' not in st.session_state: st.session_state['use_fallback_line'] = False
 
+# --- LOADERS ---
 @st.cache_resource
 def get_driver():
     try: return GraphDatabase.driver(NEO4J_URI, auth=NEO4J_AUTH)
@@ -106,43 +81,28 @@ def get_semantic_engine():
     return VectorSearchEngine()
 ai_engine = get_semantic_engine()
 
-# Initialize Vector Index (Your Fixed Logic)
-if ai_engine.cached_embeddings is None:
-    if driver:
-        with driver.session() as session:
-            query = """
-            MATCH (p:PointOfInterest) 
-            RETURN p.name as name, p.description as description, 
-                   p.lat as lat, p.lon as lon
-            """
-            result = session.run(query)
-            pois = [r.data() for r in result]
-            if pois: ai_engine.fit_index(pois, text_key='description')
+if ai_engine.cached_embeddings is None and driver:
+    with driver.session() as session:
+        query = "MATCH (p:PointOfInterest) RETURN p.name as name, p.description as description, p.lat as lat, p.lon as lon"
+        result = session.run(query)
+        pois = [r.data() for r in result]
+        if pois: ai_engine.fit_index(pois, text_key='description')
 
-# --- 3. HELPER FUNCTIONS ---
+# --- LOGIC ---
 
 def search_hsl_places(searchterm: str):
-    """GOOGLE-STYLE AUTOCOMPLETE (Your Logic)"""
     if not searchterm: return []
     url = "https://api.digitransit.fi/geocoding/v1/search"
     params = {"text": searchterm, "size": 5, "digitransit-subscription-key": HSL_KEY}
     try:
         resp = requests.get(url, params=params)
         if resp.status_code == 200:
-            features = resp.json().get('features', [])
-            suggestions = []
-            for f in features:
-                props = f['properties']
-                label = props.get('label', 'Unknown')
-                coords = f['geometry']['coordinates']
-                value = json.dumps({"name": label, "lat": coords[1], "lon": coords[0]})
-                suggestions.append((label, value))
-            return suggestions
+            return [(f['properties']['label'], json.dumps({"name": f['properties']['label'], "lat": f['geometry']['coordinates'][1], "lon": f['geometry']['coordinates'][0]})) for f in resp.json()['features']]
     except: return []
     return []
 
 def decode_polyline(polyline_str):
-    """Decodes Google Polyline (Mate's Logic)"""
+    """Standard Google Polyline Decoder"""
     index, lat, lng = 0, 0, 0
     coordinates = []
     changes = {'latitude': 0, 'longitude': 0}
@@ -163,109 +123,118 @@ def decode_polyline(polyline_str):
     return coordinates
 
 def get_hsl_route(start, end):
-    """Fetches exact geometry (Mate's Logic)"""
+    """
+    EXPERT ROUTE FETCHER:
+    Returns geometry following roads/tracks.
+    """
     if not start or not end: return None
     url = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql"
+    
+    # Query HSL for exact geometry
     query = """
     { plan(from: {lat: %f, lon: %f}, to: {lat: %f, lon: %f}, numItineraries: 1) {
         itineraries { legs { mode legGeometry { points } } }
     } }
     """ % (start['lat'], start['lon'], end['lat'], end['lon'])
+    
     headers = {"Content-Type": "application/json", "digitransit-subscription-key": HSL_KEY}
     try:
         resp = requests.post(url, json={"query": query}, headers=headers)
         data = resp.json()
         path_segments = []
-        legs = data['data']['plan']['itineraries'][0]['legs']
-        for leg in legs:
-            points = decode_polyline(leg['legGeometry']['points'])
-            color = [0, 255, 100] if leg['mode'] == 'TRAM' else [0, 150, 255]
-            path_segments.append({"path": points, "color": color})
-        return path_segments
-    except: return None
+        
+        if 'data' in data and data['data']['plan']['itineraries']:
+            legs = data['data']['plan']['itineraries'][0]['legs']
+            for leg in legs:
+                points = decode_polyline(leg['legGeometry']['points'])
+                
+                # Dynamic Colors
+                color = [0, 180, 255] # Bus/Default (Blue)
+                if leg['mode'] == 'TRAM': color = [50, 255, 100] # Green
+                elif leg['mode'] == 'SUBWAY': color = [255, 140, 0] # Orange
+                elif leg['mode'] == 'RAIL': color = [255, 50, 50] # Red
+                elif leg['mode'] == 'FERRY': color = [0, 200, 255] # Cyan
+                elif leg['mode'] == 'WALK': color = [200, 200, 200] # Grey
+                
+                path_segments.append({"path": points, "color": color})
+            return path_segments
+        else:
+            return None # Trigger fallback
+    except: 
+        return None # Trigger fallback
 
 def get_planned_itinerary(start, end, departure_time=None):
-    """Time-Based Planning (Your Logic)"""
-    if not start or not end: return ""
-    
-    if departure_time:
-        time_str = departure_time.strftime("%Y-%m-%dT%H:%M:%S") + "+02:00"
-        time_mode = f'dateTime: "{time_str}"'
-    else:
-        time_mode = "" 
-
+    if not start or not end: return "Error: Missing location data."
+    time_mode = f'dateTime: "{departure_time.strftime("%Y-%m-%dT%H:%M:%S")}+02:00"' if departure_time else ""
     query = """
-    { plan(from: {lat: %s, lon: %s}, to: {lat: %s, lon: %s}, numItineraries: 3, %s) {
+    { plan(from: {lat: %f, lon: %f}, to: {lat: %f, lon: %f}, numItineraries: 2, %s) {
         itineraries { duration legs { mode startTime route { shortName } from { name } to { name } } }
     } }
-    """ % (start['lat'], start['lon'], end['lat'], end['lon'], time_mode)
-
-    url = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql"
-    headers = {"Content-Type": "application/json", "digitransit-subscription-key": HSL_KEY}
+    """ % (float(start['lat']), float(start['lon']), float(end['lat']), float(end['lon']), time_mode)
+    
     try:
-        resp = requests.post(url, json={"query": query}, headers=headers)
-        data = resp.json()['data']['plan']['itineraries']
-        context_str = "OFFICIAL HSL PLANNER RESULTS:\n"
-        for i, itin in enumerate(data):
-            duration_min = int(itin['duration'] / 60)
-            context_str += f"OPTION {i+1} ({duration_min} min):\n"
+        resp = requests.post("https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql", json={"query": query}, headers={"Content-Type": "application/json", "digitransit-subscription-key": HSL_KEY})
+        itins = resp.json()['data']['plan']['itineraries']
+        context_str = "OFFICIAL HSL SCHEDULE:\n"
+        for i, itin in enumerate(itins):
+            context_str += f"Option {i+1} ({int(itin['duration']/60)} min):\n"
             for leg in itin['legs']:
                 start_t = datetime.fromtimestamp(leg['startTime']/1000).strftime('%H:%M')
-                mode = leg['mode']
                 route = leg['route']['shortName'] if leg['route'] else ""
-                context_str += f"  - At {start_t}, take {mode} {route} from {leg['from']['name']}\n"
+                context_str += f" - {start_t}: {leg['mode']} {route} from {leg['from']['name']}\n"
         return context_str
     except Exception as e: return f"Planner Error: {str(e)}"
 
+def ask_general_llm(query):
+    if not GROQ_KEY: return "AI service offline."
+    client = Groq(api_key=GROQ_KEY)
+    prompt = f"""
+    You are a Helsinki Transport Expert.
+    User Question: "{query}"
+    Info:
+    - Single Ticket (Zone AB): 2.95 Euro
+    - Day Ticket: 9.00 Euro
+    - Fine: 80 Euro
+    Instructions: Be brief, professional, and helpful. No emojis.
+    """
+    try:
+        resp = client.chat.completions.create(model="llama-3.3-70b-versatile", messages=[{"role": "user", "content": prompt}])
+        return resp.choices[0].message.content
+    except: return "Service unavailable."
+
 def ask_llm(query, start, end, semantic_pois=None, planned_time=None):
-    """Merged LLM Logic: Your Context + Mate's Witty Persona"""
     if not GROQ_KEY: return "AI Offline."
     client = Groq(api_key=GROQ_KEY)
-    
-    start_name = start['name'] if start else "Helsinki Center"
-    target_name = end['name'] if end else "Destination"
-    
+    target_name = end['name']
+    dest_desc = "Point of Interest"
     if semantic_pois is not None and not semantic_pois.empty:
         target_name = semantic_pois.iloc[0]['name']
+        dest_desc = semantic_pois.iloc[0].get('description', '')
         end = {'lat': semantic_pois.iloc[0]['lat'], 'lon': semantic_pois.iloc[0]['lon'], 'name': target_name}
 
-    planner_context = get_planned_itinerary(start, end, planned_time)
-    
+    planner_data = get_planned_itinerary(start, end, planned_time)
     prompt = f"""
-    Act as a witty Helsinki Local Guide.
-    Request: Go from {start_name} to {target_name}.
-    Vibe: "{query}"
-    Time: {planned_time if planned_time else "NOW"}
+    Role: Professional Helsinki Transport Guide.
+    Task: Create a structured itinerary from {start['name']} to {target_name}.
+    Vibe: {query} ({dest_desc}).
     
-    DATA:
-    {planner_context}
+    Data: 
+    {planner_data}
     
-    INSTRUCTIONS:
-    1. Summarize the best route option.
-    2. Be conversational and helpful.
-    3. If a vibe was provided, mention why the destination fits.
+    Output strictly:
+    - Departure: [Time] [Location]
+    - Route: [Mode] [Line]
+    - Arrival: [Time]
+    - Tip: Enjoy {dest_desc}.
     """
     try:
         resp = client.chat.completions.create(model="llama-3.3-70b-versatile", messages=[{"role": "user", "content": prompt}])
         return resp.choices[0].message.content
     except: return "AI Error."
 
-def speak_text(text):
-    """Text to Speech (Mate's Logic)"""
-    safe_text = text.replace('"', '\\"').replace('\n', ' ')
-    js = f"""<script>
-        var msg = new SpeechSynthesisUtterance("{safe_text}");
-        msg.lang = 'en-US';
-        window.speechSynthesis.speak(msg);
-    </script>"""
-    components.html(js, height=0, width=0)
-
 def get_live_vehicles():
-    """FIXED VERSION (Your Logic): Shows Descriptions correctly"""
     try:
-        url = "https://realtime.hsl.fi/realtime/vehicle-positions/v2/hsl"
-        headers = {"digitransit-subscription-key": HSL_KEY} if HSL_KEY else {}
-        resp = requests.get(url, headers=headers, timeout=2)
+        resp = requests.get("https://realtime.hsl.fi/realtime/vehicle-positions/v2/hsl", headers={"digitransit-subscription-key": HSL_KEY}, timeout=2)
         feed = gtfs_realtime_pb2.FeedMessage()
         feed.ParseFromString(resp.content)
         vehicles = []
@@ -274,173 +243,179 @@ def get_live_vehicles():
                 r_id = e.vehicle.trip.route_id.replace("HSL:", "").strip() if e.vehicle.trip.route_id else ""
                 t_id = e.vehicle.trip.trip_id.replace("HSL:", "").strip()
                 d_id = str(e.vehicle.trip.direction_id)
-                
                 route_data = routes_dict.get(r_id, {"short": r_id, "mode": "BUS", "long": ""})
+                
+                # FALLBACK LOGIC FOR DESTINATION
                 headsign = trip_lookup.get(t_id)
-                if not headsign: headsign = direction_lookup.get((r_id, d_id), "Unknown")
+                if not headsign:
+                    headsign = direction_lookup.get((r_id, d_id))
+                if not headsign:
+                    headsign = "City Centre" if d_id == '1' else "Regional Terminus"
                 
                 mode = route_data['mode']
                 short = route_data['short']
-                desc = f"{mode} {short}: To {headsign}"
-                details = f"Route: {route_data['long']}"
+                tooltip = f"<b>{mode} {short}</b><br/>To: {headsign}"
                 
                 if mode == 'TRAM': color, radius = [0, 200, 100, 200], 40
                 elif mode == 'METRO': color, radius = [255, 140, 0, 200], 50
                 elif mode == 'TRAIN': color, radius = [200, 0, 0, 200], 50
                 elif mode == 'FERRY': color, radius = [0, 100, 255, 200], 60
                 else: color, radius = [0, 150, 255, 180], 30
-
-                vehicles.append({
-                    "lat": e.vehicle.position.latitude, "lon": e.vehicle.position.longitude,
-                    "color": color, "radius": radius, "desc": desc, "details": details
-                })
+                
+                vehicles.append({"lat": e.vehicle.position.latitude, "lon": e.vehicle.position.longitude, "color": color, "radius": radius, "html_tooltip": tooltip})
         return pd.DataFrame(vehicles)
     except: return pd.DataFrame()
 
 def get_graph_pois():
     if not driver: return pd.DataFrame()
     with driver.session() as session:
-        result = session.run("MATCH (p:PointOfInterest) RETURN p.name as name, p.lat as lat, p.lon as lon")
-        return pd.DataFrame([r.data() for r in result])
+        result = session.run("MATCH (p:PointOfInterest) RETURN p.name as name, p.lat as lat, p.lon as lon, p.description as desc")
+        df = pd.DataFrame([r.data() for r in result])
+        if not df.empty:
+            df['html_tooltip'] = "<b>" + df['name'] + "</b><br/>" + df['desc'].fillna('Point of Interest')
+            df['color'] = [[255, 0, 128, 200]] * len(df)
+            df['radius'] = 30
+        return df
 
-# --- 4. UI LAYOUT ---
+# --- UI ---
 
 col_logo, col_title = st.columns([1, 5])
 with col_logo: st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Helsinki_vaakuna.svg/1200px-Helsinki_vaakuna.svg.png", width=70)
-with col_title: st.markdown('<div class="hero-title">HELSINKI AI NAVIGATOR</div>', unsafe_allow_html=True)
+with col_title: st.markdown('<div class="hero-title">TAU AI NAVIGATOR</div>', unsafe_allow_html=True)
 
 col_left, col_right = st.columns([1.2, 2.5], gap="medium")
 
 with col_left:
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-    st.markdown("### 🗺️ Plan Your Journey")
-    
-    # GPS Toggle (Mate's position logic)
-    if st.toggle("📍 Use GPS Location"):
+    st.markdown("### Plan Your Journey")
+    if st.toggle("Use GPS Location"):
         loc = get_geolocation()
         if loc and 'coords' in loc:
             st.session_state['start_loc'] = {"name": "My Location", "lat": loc['coords']['latitude'], "lon": loc['coords']['longitude']}
             st.success("GPS Locked")
 
-    # --- YOUR SEARCHBOXES ---
-    st.markdown("**From:**")
-    selected_start = st_searchbox(search_hsl_places, key="s1", placeholder="Type start...")
-    if selected_start: st.session_state['start_loc'] = json.loads(selected_start)
+    start_json = st_searchbox(search_hsl_places, key="s1", placeholder="From...", label="Start")
+    if start_json: st.session_state['start_loc'] = json.loads(start_json)
 
-    st.markdown("**To:**")
-    selected_end = st_searchbox(search_hsl_places, key="s2", placeholder="Type destination...")
-    if selected_end: st.session_state['end_loc'] = json.loads(selected_end)
+    end_json = st_searchbox(search_hsl_places, key="s2", placeholder="To...", label="Destination")
+    if end_json: st.session_state['end_loc'] = json.loads(end_json)
 
-    # --- YOUR TIME PICKER ---
-    with st.expander("🕒 Preferred Time (Optional)", expanded=False):
+    with st.expander("Preferred Time", expanded=False):
         d = st.date_input("Date", datetime.now())
         t = st.time_input("Time", datetime.now())
         planned_dt = datetime.combine(d, t)
 
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
+    st.markdown('</div><div class="glass-card">', unsafe_allow_html=True)
+    interest = st.text_input("Vibe Search", placeholder="e.g. Quiet Library")
     
-    interest = st.text_input("✨ Vibe Search", placeholder="e.g. Underground Techno")
-    
-    col_btn1, col_btn2 = st.columns(2)
-    with col_btn1:
-        if st.button("🚀 Find Route"):
-            # 1. Semantic Search (Your Logic)
-            found_pois = None
-            if interest:
-                results = ai_engine.search(interest, top_k=10)
-                if results:
-                    found_pois = pd.DataFrame(results)
-                    st.session_state['semantic_pois'] = found_pois
-                    st.toast(f"Found {len(results)} vibes", icon="🎯")
-            
-            # 2. Path Geometry (Mate's Logic)
-            if st.session_state['start_loc'] and st.session_state['end_loc']:
-                st.session_state['route_geometry'] = get_hsl_route(st.session_state['start_loc'], st.session_state['end_loc'])
-
-            # 3. LLM Plan (Merged Logic)
-            if st.session_state['start_loc']:
-                with st.spinner("AI Planning..."):
-                    plan = ask_llm(interest, st.session_state['start_loc'], st.session_state['end_loc'], found_pois, planned_dt)
-                    st.info(plan)
-                    speak_text(f"Route found. {plan[:100]}") # Audio Feedback
-
-    with col_btn2:
-        if st.button("🔄 Reload Data"):
-            if driver:
-                with st.spinner("Refreshing..."):
-                    run_neo4j_import(driver, HSL_KEY)
-                    run_enrichment(driver)
-                    initialize_search_index()
-                    st.success("Updated")
-    
-    live_mode = st.toggle("📡 Live Tracking Mode", value=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# --- RIGHT COLUMN: MAP ---
-with col_right:
-    
-    @st.fragment(run_every=2 if live_mode else None)
-    def render_map():
-        # Determine POI Data (Heatmap vs Scatter)
-        if st.session_state['semantic_pois'] is not None:
-            pois_df = st.session_state['semantic_pois']
-            is_heatmap = True
-        else:
-            pois_df = get_graph_pois()
-            is_heatmap = False # Default generic dots are not heatmap
+    if st.button("Find Route"):
+        found_pois = None
+        if interest:
+            results = ai_engine.search(interest, top_k=5)
+            if results:
+                found_pois = pd.DataFrame(results)
+                found_pois['html_tooltip'] = "<b>" + found_pois['name'] + "</b><br/>Match: " + interest
+                found_pois['color'] = [[255, 200, 0, 255]] * len(found_pois)
+                found_pois['radius'] = 50
+                st.session_state['semantic_pois'] = found_pois
+                st.toast(f"Found {len(results)} vibes", icon="🎯")
         
-        vehicles_df = get_live_vehicles()
-        
-        view_lat, view_lon, zoom = 60.1699, 24.9384, 13
+        # ROUTE LOGIC WITH FALLBACK
+        if st.session_state['start_loc'] and st.session_state['end_loc']:
+            with st.spinner("Calculating Path..."):
+                route_geo = get_hsl_route(st.session_state['start_loc'], st.session_state['end_loc'])
+                if route_geo:
+                    st.session_state['route_geometry'] = route_geo
+                    st.session_state['use_fallback_line'] = False
+                else:
+                    # Fallback Mode for Demo
+                    st.session_state['use_fallback_line'] = True
+                    st.session_state['route_geometry'] = None
+
         if st.session_state['start_loc']:
-            view_lat = st.session_state['start_loc']['lat']
-            view_lon = st.session_state['start_loc']['lon']
-            zoom = 14
+            with st.spinner("Processing..."):
+                plan = ask_llm(interest, st.session_state['start_loc'], st.session_state['end_loc'], found_pois, planned_dt)
+                st.info(plan)
 
+    st.markdown("---")
+    st.markdown("### Ask the TAU AI Navigator")
+    general_q = st.text_input("Ask about fares, rules, etc.", placeholder="How much is a ticket?")
+    if general_q:
+        ans = ask_general_llm(general_q)
+        st.success(ans)
+
+    if st.button("Reload Data"):
+        if driver:
+            with st.spinner("Reloading..."):
+                run_neo4j_import(driver, HSL_KEY)
+                run_enrichment(driver)
+                st.success("Updated")
+                
+    st.markdown("""
+    <div class='tech-footer'>
+        POWERED BY NEURO-SYMBOLIC AI & KNOWLEDGE GRAPHS<br>
+        Built for the Public Transport Graph Challenge
+    </div>
+    """, unsafe_allow_html=True)
+
+with col_right:
+    map_placeholder = st.empty()
+    while True:
         layers = []
-
-        # Layer A: Live Vehicles (Your fixed tooltips)
-        if not vehicles_df.empty:
+        
+        # 1. LIVE VEHICLES
+        v_df = get_live_vehicles()
+        if not v_df.empty:
             layers.append(pdk.Layer(
-                "ScatterplotLayer", vehicles_df,
+                "ScatterplotLayer", v_df,
                 get_position='[lon, lat]', get_fill_color='color', get_radius='radius',
-                pickable=True, auto_highlight=True,
-                tooltip="desc" # Fallback key if HTML tooltip fails
+                pickable=True, auto_highlight=True, tooltip="html_tooltip"
             ))
 
-        # Layer B: POIs (Mate's Heatmap Logic)
-        if not pois_df.empty:
-            if is_heatmap:
-                layers.append(pdk.Layer(
-                    "HeatmapLayer", pois_df, get_position='[lon, lat]', opacity=0.6,
-                    radiusPixels=50, intensity=1, threshold=0.3
-                ))
-            else:
-                layers.append(pdk.Layer(
-                    "ScatterplotLayer", pois_df, get_position='[lon, lat]',
-                    get_fill_color=[255, 0, 128, 200], get_radius=30, pickable=True
-                ))
+        # 2. POIS
+        if st.session_state['semantic_pois'] is not None:
+            p_df = st.session_state['semantic_pois']
+        else:
+            p_df = get_graph_pois()
+            
+        if not p_df.empty and 'html_tooltip' in p_df.columns:
+            layers.append(pdk.Layer(
+                "ScatterplotLayer", p_df,
+                get_position='[lon, lat]', get_fill_color='color', get_radius='radius',
+                pickable=True, stroked=True, get_line_color=[255,255,255]
+            ))
 
-        # Layer C: Route Path (Mate's Logic)
+        # 3. ROUTE LINE (Standard Road Following)
         if st.session_state['route_geometry']:
             layers.append(pdk.Layer(
                 "PathLayer", data=st.session_state['route_geometry'],
-                get_path="path", get_color="color", width_scale=20, width_min_pixels=3
+                get_path="path", get_color="color", width_scale=20, width_min_pixels=5, pickable=True
+            ))
+            
+        # 4. FALLBACK LINE (Exhibition Mode: Arc Layer)
+        if st.session_state.get('use_fallback_line') and st.session_state['start_loc'] and st.session_state['end_loc']:
+            arc_data = [{
+                "source": [st.session_state['start_loc']['lon'], st.session_state['start_loc']['lat']],
+                "target": [st.session_state['end_loc']['lon'], st.session_state['end_loc']['lat']]
+            }]
+            layers.append(pdk.Layer(
+                "ArcLayer", data=arc_data,
+                get_source_position="source", get_target_position="target",
+                get_source_color=[0, 255, 0], get_target_color=[255, 0, 0],
+                get_width=5
             ))
 
-        # Layer D: Markers
+        # 5. MARKERS
         if st.session_state['start_loc']:
-             layers.append(pdk.Layer("ScatterplotLayer", data=[st.session_state['start_loc']], get_position='[lon, lat]', get_fill_color=[0, 100, 255, 255], get_radius=150, stroked=True, get_line_color=[255,255,255], get_line_width=5))
+             layers.append(pdk.Layer("ScatterplotLayer", data=[st.session_state['start_loc']], get_position='[lon, lat]', get_fill_color=[0, 100, 255, 255], get_radius=100, stroked=True, get_line_color=[255,255,255], get_line_width=5))
         if st.session_state['end_loc']:
-             layers.append(pdk.Layer("ScatterplotLayer", data=[st.session_state['end_loc']], get_position='[lon, lat]', get_fill_color=[255, 50, 50, 255], get_radius=150, stroked=True, get_line_color=[255,255,255], get_line_width=5))
+             layers.append(pdk.Layer("ScatterplotLayer", data=[st.session_state['end_loc']], get_position='[lon, lat]', get_fill_color=[255, 50, 50, 255], get_radius=100, stroked=True, get_line_color=[255,255,255], get_line_width=5))
 
         deck = pdk.Deck(
             map_style="dark",
-            initial_view_state=pdk.ViewState(latitude=view_lat, longitude=view_lon, zoom=zoom, pitch=0),
+            initial_view_state=pdk.ViewState(latitude=60.17, longitude=24.94, zoom=13),
             layers=layers,
-            tooltip={"html": "<b>{desc}</b><br/>{details}" if not vehicles_df.empty else "<b>{name}</b>", "style": {"backgroundColor": "steelblue", "color": "white"}}
+            tooltip={"html": "{html_tooltip}", "style": {"backgroundColor": "#2c3e50", "color": "white"}}
         )
-        st.pydeck_chart(deck)
-
-    render_map()
+        map_placeholder.pydeck_chart(deck)
+        time.sleep(2)
