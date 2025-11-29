@@ -45,16 +45,16 @@ By combining a **Neo4j Knowledge Graph** (for spatial logic) with a **Vector Sea
 
 ```mermaid
 graph TD
-    User[User Query: 'Hipster Cafe'] --> Vector[Vector Search Engine]
+    User[User Query: 'Hipster Cafe'] --> Vector[Semantic Search Engine]
     Vector -->|Embeddings| Semantic[Semantic Match]
     
     User -->|GPS/Input| Geocoder[HSL Geocoder]
     
-    Semantic --> Graph[Neo4j Knowledge Graph]
+    Semantic --> Graph[Graph RAG]
     Geocoder --> Graph
     
-    Graph -->|Context + POIs| LLM[Groq Llama-3]
-    LLM -->|Itinerary| UI[Streamlit UI]
+    Graph -->|Context + POIs| LLM[LLM]
+    LLM -->|Itinerary| UI[TAU Dashboard]
     
     Live[HSL Realtime API] -->|Vehicle Positions| UI
     Routing[Digitransit GraphQL] -->|Path Geometry| UI
