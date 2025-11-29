@@ -1,7 +1,5 @@
 FROM python:3.9-slim
 
-# REMOVED: The user creation lines
-# RUN useradd -m -u 1000 user 
 
 WORKDIR /app
 
@@ -14,9 +12,6 @@ COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-
-# REMOVED: Switching to "user"
-# USER user
 
 # Hugging runs app on port 7860
 EXPOSE 7860
