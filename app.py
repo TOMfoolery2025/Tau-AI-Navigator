@@ -18,8 +18,7 @@ from etl_neo4j import run_neo4j_import
 from etl_enrich import run_enrichment
 from etl_static import load_static_lookups 
 
-# --- CONFIGURATION ---
-st.set_page_config(layout="wide", page_title="Tau AI Navigator", page_icon="🧠")
+st.set_page_config(layout="wide", page_title="Tau AI Navigator")
 
 st.markdown("""
 <style>
@@ -51,20 +50,17 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# API Keys
 NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
 NEO4J_AUTH = (os.getenv("NEO4J_USER", "neo4j"), os.getenv("NEO4J_PASSWORD", "password123"))
 GROQ_KEY = os.getenv("GROQ_API_KEY")
 HSL_KEY = os.getenv("DIGITRANSIT_API_KEY")
 
-# --- STATE ---
 if 'start_loc' not in st.session_state: st.session_state['start_loc'] = None
 if 'end_loc' not in st.session_state: st.session_state['end_loc'] = None
 if 'semantic_pois' not in st.session_state: st.session_state['semantic_pois'] = None
 if 'route_geometry' not in st.session_state: st.session_state['route_geometry'] = None
 if 'use_fallback_line' not in st.session_state: st.session_state['use_fallback_line'] = False
 
-# --- LOADERS ---
 @st.cache_resource
 def get_driver():
     try: return GraphDatabase.driver(NEO4J_URI, auth=NEO4J_AUTH)
@@ -88,8 +84,6 @@ if ai_engine.cached_embeddings is None and driver:
         pois = [r.data() for r in result]
         if pois: ai_engine.fit_index(pois, text_key='description')
 
-# --- LOGIC ---
-
 def search_hsl_places(searchterm: str):
     if not searchterm: return []
     url = "https://api.digitransit.fi/geocoding/v1/search"
@@ -102,7 +96,6 @@ def search_hsl_places(searchterm: str):
     return []
 
 def decode_polyline(polyline_str):
-    """Standard Google Polyline Decoder"""
     index, lat, lng = 0, 0, 0
     coordinates = []
     changes = {'latitude': 0, 'longitude': 0}
@@ -123,14 +116,9 @@ def decode_polyline(polyline_str):
     return coordinates
 
 def get_hsl_route(start, end):
-    """
-    EXPERT ROUTE FETCHER:
-    Returns geometry following roads/tracks.
-    """
     if not start or not end: return None
     url = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql"
     
-    # Query HSL for exact geometry
     query = """
     { plan(from: {lat: %f, lon: %f}, to: {lat: %f, lon: %f}, numItineraries: 1) {
         itineraries { legs { mode legGeometry { points } } }
@@ -148,20 +136,19 @@ def get_hsl_route(start, end):
             for leg in legs:
                 points = decode_polyline(leg['legGeometry']['points'])
                 
-                # Dynamic Colors
-                color = [0, 180, 255] # Bus/Default (Blue)
-                if leg['mode'] == 'TRAM': color = [50, 255, 100] # Green
-                elif leg['mode'] == 'SUBWAY': color = [255, 140, 0] # Orange
-                elif leg['mode'] == 'RAIL': color = [255, 50, 50] # Red
-                elif leg['mode'] == 'FERRY': color = [0, 200, 255] # Cyan
-                elif leg['mode'] == 'WALK': color = [200, 200, 200] # Grey
+                color = [0, 180, 255]
+                if leg['mode'] == 'TRAM': color = [50, 255, 100]
+                elif leg['mode'] == 'SUBWAY': color = [255, 140, 0]
+                elif leg['mode'] == 'RAIL': color = [255, 50, 50]
+                elif leg['mode'] == 'FERRY': color = [0, 200, 255]
+                elif leg['mode'] == 'WALK': color = [200, 200, 200]
                 
                 path_segments.append({"path": points, "color": color})
             return path_segments
         else:
-            return None # Trigger fallback
+            return None
     except: 
-        return None # Trigger fallback
+        return None
 
 def get_planned_itinerary(start, end, departure_time=None):
     if not start or not end: return "Error: Missing location data."
@@ -245,7 +232,6 @@ def get_live_vehicles():
                 d_id = str(e.vehicle.trip.direction_id)
                 route_data = routes_dict.get(r_id, {"short": r_id, "mode": "BUS", "long": ""})
                 
-                # FALLBACK LOGIC FOR DESTINATION
                 headsign = trip_lookup.get(t_id)
                 if not headsign:
                     headsign = direction_lookup.get((r_id, d_id))
@@ -276,8 +262,6 @@ def get_graph_pois():
             df['color'] = [[255, 0, 128, 200]] * len(df)
             df['radius'] = 30
         return df
-
-# --- UI ---
 
 col_logo, col_title = st.columns([1, 5])
 with col_logo: st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Helsinki_vaakuna.svg/1200px-Helsinki_vaakuna.svg.png", width=70)
@@ -318,9 +302,8 @@ with col_left:
                 found_pois['color'] = [[255, 200, 0, 255]] * len(found_pois)
                 found_pois['radius'] = 50
                 st.session_state['semantic_pois'] = found_pois
-                st.toast(f"Found {len(results)} vibes", icon="🎯")
+                st.toast(f"Found {len(results)} vibes")
         
-        # ROUTE LOGIC WITH FALLBACK
         if st.session_state['start_loc'] and st.session_state['end_loc']:
             with st.spinner("Calculating Path..."):
                 route_geo = get_hsl_route(st.session_state['start_loc'], st.session_state['end_loc'])
@@ -328,7 +311,6 @@ with col_left:
                     st.session_state['route_geometry'] = route_geo
                     st.session_state['use_fallback_line'] = False
                 else:
-                    # Fallback Mode for Demo
                     st.session_state['use_fallback_line'] = True
                     st.session_state['route_geometry'] = None
 
@@ -363,7 +345,6 @@ with col_right:
     while True:
         layers = []
         
-        # 1. LIVE VEHICLES
         v_df = get_live_vehicles()
         if not v_df.empty:
             layers.append(pdk.Layer(
@@ -372,7 +353,6 @@ with col_right:
                 pickable=True, auto_highlight=True, tooltip="html_tooltip"
             ))
 
-        # 2. POIS
         if st.session_state['semantic_pois'] is not None:
             p_df = st.session_state['semantic_pois']
         else:
@@ -385,14 +365,12 @@ with col_right:
                 pickable=True, stroked=True, get_line_color=[255,255,255]
             ))
 
-        # 3. ROUTE LINE (Standard Road Following)
         if st.session_state['route_geometry']:
             layers.append(pdk.Layer(
                 "PathLayer", data=st.session_state['route_geometry'],
                 get_path="path", get_color="color", width_scale=20, width_min_pixels=5, pickable=True
             ))
             
-        # 4. FALLBACK LINE (Exhibition Mode: Arc Layer)
         if st.session_state.get('use_fallback_line') and st.session_state['start_loc'] and st.session_state['end_loc']:
             arc_data = [{
                 "source": [st.session_state['start_loc']['lon'], st.session_state['start_loc']['lat']],
@@ -405,7 +383,6 @@ with col_right:
                 get_width=5
             ))
 
-        # 5. MARKERS
         if st.session_state['start_loc']:
              layers.append(pdk.Layer("ScatterplotLayer", data=[st.session_state['start_loc']], get_position='[lon, lat]', get_fill_color=[0, 100, 255, 255], get_radius=100, stroked=True, get_line_color=[255,255,255], get_line_width=5))
         if st.session_state['end_loc']:

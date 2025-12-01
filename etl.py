@@ -2,7 +2,6 @@ import requests
 from rdflib import Graph, Literal, RDF, URIRef, Namespace
 from rdflib.namespace import FOAF, XSD
 
-# 1. DEFINE NAMESPACES
 GTFS = Namespace("http://vocab.gtfs.org/terms#")
 TOUR = Namespace("http://example.org/tour-ontology#")
 GEO = Namespace("http://www.w3.org/2003/01/geo/wgs84_pos#")
@@ -42,7 +41,7 @@ print(f"Transforming {len(stops)} stops into Knowledge Graph triples...")
 
 for edge in stops:
     stop_data = edge['node']
-    stop_uri = URIRef(EX[stop_data['gtfsId'].replace(":", "_")]) # e.g., ex:HSL_102030
+    stop_uri = URIRef(EX[stop_data['gtfsId'].replace(":", "_")]) 
     
     g.add((stop_uri, RDF.type, GTFS.Stop))
     g.add((stop_uri, GTFS.name, Literal(stop_data['name'])))

@@ -5,9 +5,8 @@ from collections import Counter
 GTFS_PATH = "/app/import_stage"
 
 def load_static_lookups():
-    print("📂 Loading Static GTFS Data...")
+    print("Loading static GTFS data...")
     
-    # 1. ROBUST MODE MAPPING
     MODE_MAP = {
         '0': 'TRAM', '900': 'TRAM', 
         '1': 'METRO', '400': 'METRO', '401': 'METRO',
@@ -29,7 +28,6 @@ def load_static_lookups():
             }
     except: pass
 
-    # 2. SMART DIRECTION LOOKUP
     trip_lookup = {}
     dir_counters = {}     
     direction_lookup = {} 

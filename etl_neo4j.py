@@ -3,7 +3,7 @@ import math
 from neo4j import GraphDatabase
 
 def calculate_distance(lat1, lon1, lat2, lon2):
-    R = 6371000 # Earth radius in meters
+    R = 6371000 
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
     dphi = math.radians(lat2 - lat1)
     dlambda = math.radians(lon2 - lon1)
@@ -12,7 +12,7 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     return R * c
 
 def run_neo4j_import(driver, api_key):
-    print("🚀 Building Semantic Knowledge Graph...")
+    print("Building semantic knowledge graph...")
 
     url = "https://api.digitransit.fi/routing/v2/hsl/gtfs/v1"
     query = """
@@ -44,7 +44,7 @@ def run_neo4j_import(driver, api_key):
         edges = data.get('data', {}).get('stopsByRadius', {}).get('edges', [])
         
         if not edges:
-            print("⚠️ No data found.")
+            print("No data found.")
             return 0
 
         stops_list = []
@@ -83,14 +83,14 @@ def run_neo4j_import(driver, api_key):
             session.run("CREATE CONSTRAINT IF NOT EXISTS FOR (s:Stop) REQUIRE s.id IS UNIQUE")
             session.run("CREATE CONSTRAINT IF NOT EXISTS FOR (r:Route) REQUIRE r.id IS UNIQUE")
 
-            print("... Creating Semantic Stop Nodes")
+            print("Creating semantic stop nodes...")
             session.run("""
             UNWIND $batch AS row
             MERGE (s:Stop {id: row.id})
             SET s.name = row.name, s.lat = row.lat, s.lon = row.lon, s.ontologyType = row.type
             """, batch=stops_list)
 
-            print("... Creating Semantic Route Nodes")
+            print("Creating semantic route nodes...")
             unique_routes = {v['id']: v for v in routes_list}.values()
             session.run("""
             UNWIND $batch AS row
@@ -98,7 +98,7 @@ def run_neo4j_import(driver, api_key):
             SET r.name = row.name, r.mode = row.mode, r.ontologyType = row.type
             """, batch=list(unique_routes))
 
-            print("... Linking Topology (OPERATES_ON)")
+            print("Linking topology...")
             session.run("""
             UNWIND $batch AS row
             MATCH (r:Route {id: row.route_id})
@@ -106,7 +106,7 @@ def run_neo4j_import(driver, api_key):
             MERGE (r)-[:OPERATES_ON]->(s)
             """, batch=serves_rels)
 
-            print("... Inferring Spatial Relationships")
+            print("Inferring spatial relationships...")
             
             walk_links = []
             for i in range(len(stop_cache)):
@@ -115,7 +115,7 @@ def run_neo4j_import(driver, api_key):
                     s2 = stop_cache[j]
                     dist = calculate_distance(s1['lat'], s1['lon'], s2['lat'], s2['lon'])
                     
-                    if dist < 150: # 150 meters
+                    if dist < 150: 
                         walk_links.append({"a": s1['gtfsId'], "b": s2['gtfsId'], "dist": dist})
 
             if walk_links:
@@ -127,9 +127,9 @@ def run_neo4j_import(driver, api_key):
                 SET rel.distance_meters = row.dist
                 """, batch=walk_links)
 
-        print(f"✅ Semantic Graph Built! ({len(stops_list)} Stops, {len(walk_links)} Walk Links)")
+        print(f"Semantic graph built successfully. ({len(stops_list)} stops, {len(walk_links)} walk links)")
         return len(stops_list)
 
     except Exception as e:
-        print(f"❌ ETL Error: {e}")
+        print(f"ETL error: {e}")
         return 0

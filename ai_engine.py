@@ -13,7 +13,6 @@ except LookupError:
 
 class TextNormalizer:
     """
-    Adapted from TVAStringCleansing and TVALabelTools.
     Handles 'Blocklists' and 'Stemming' to clean noise from OSM/GTFS data.
     """
     def __init__(self, language="english"):
@@ -32,15 +31,15 @@ class TextNormalizer:
         if not text or not isinstance(text, str):
             return []
         
-        # 1. Aggressive Cleaning (Regex from TVA)
+        # 1. Aggressive Cleaning
         text = re.sub(r'[^\w\s]', ' ', text)
         words = text.lower().split()
         
         valid_concepts = []
         for w in words:
-            # 2. Blocklist Filter
+            # Blocklist Filter
             if w not in self.blocklist and len(w) > 2:
-                # 3. Stemming
+                #  Stemming
                 stemmed = self.stemmer.stem(w)
                 valid_concepts.append(stemmed)
                 
@@ -48,7 +47,6 @@ class TextNormalizer:
 
 class VectorSearchEngine:
     """
-    Adapted from TVASemanticSearchTools.
     Provides Vector Embedding and Cosine Similarity search.
     """
     def __init__(self, model_name='all-MiniLM-L6-v2'):
@@ -65,14 +63,13 @@ class VectorSearchEngine:
 
     def fit_index(self, data_objects, text_key='description'):
             self.cached_metadata = data_objects
-            # FIX: Force conversion to string and handle None explicitly
             corpus = []
             for obj in data_objects:
                 val = obj.get(text_key)
                 corpus.append(str(val) if val is not None else "")
                 
             self.cached_embeddings = self.model.encode(corpus, convert_to_tensor=True)
-            print(f"✅ Indexed {len(corpus)} items semantically.")
+            print(f"Indexed {len(corpus)} items semantically.")
 
     def search(self, query, top_k=5):
         """
@@ -80,20 +77,13 @@ class VectorSearchEngine:
         """
         if self.cached_embeddings is None:
             return []
-        
         # Encode query
         query_vec = self.model.encode(query, convert_to_tensor=True)
-        
-        # Calculate Cosine Similarity
-        # Move to CPU for numpy operations if using Torch
         query_vec = query_vec.cpu().numpy().reshape(1, -1)
         corpus_vecs = self.cached_embeddings.cpu().numpy()
-        
         scores = cosine_similarity(query_vec, corpus_vecs)[0]
-        
         # Sort results
         top_indices = np.argsort(scores)[-top_k:][::-1]
-        
         results = []
         for idx in top_indices:
             score = scores[idx]
@@ -101,5 +91,4 @@ class VectorSearchEngine:
                 item = self.cached_metadata[idx]
                 item['similarity_score'] = float(score)
                 results.append(item)
-                
         return results
